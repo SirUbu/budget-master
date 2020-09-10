@@ -1,9 +1,13 @@
 #calGrid {
     display: grid;
     grid-template-columns: repeat(7, auto);
-    grid-template-rows: 30px repeat(5, 95px);
+    grid-template-rows: 30px repeat(5, auto);
 }
 
 #calGrid div {
     border: black solid 1px;
+}
+
+.card {
+    margin: 0;
 }
