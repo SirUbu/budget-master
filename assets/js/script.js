@@ -1,4 +1,5 @@
 // get DOM elements
+var calDates = document.querySelector("#calGrid");
 
 
 // set global variable 
@@ -22,7 +23,7 @@ var expenses = [
     {day: "6th", expenseList: []},
     {day: "7th", expenseList: []},
     {day: "8th", expenseList: []},
-    {day: "9th", expenseList: []},
+    {day: "9th", expenseList: [{name: "Wells Fargo", description: "Credit Card", amount: "$25", status: false}]},
     {day: "10th", expenseList: []},
     {day: "11th", expenseList: []},
     {day: "12th", expenseList: []},
@@ -70,7 +71,43 @@ var calRemaining = "";
     
 
     // function to generate and display calendar
-
+    var createCalendar = function () {
+      // determine date with note ie 1st, 2nd, 3rd
+      for(var i = 0; i < 31; i++) {
+        var dateNote = "";
+          if(i+1 === 1 || i+1 === 21 || i+1 === 31) {
+            dateNote = "st";
+          } else if(i+1 === 2 || i+1 == 22) {
+            dateNote = "nd";
+          } else if(i+1 === 3 || i+1 === 23) {
+            dateNote = "rd";
+          } else {
+            dateNote = "th";
+          };
+        var date = `${i+1}${dateNote}`;
+        // create card for date and content
+        var dateEl = document.createElement("div");
+        dateEl.classList = "card";
+        // create and add date as card header
+        var dateHeader = document.createElement("span");
+        dateHeader.classList = "card-title left-align grey";
+        dateHeader.textContent = date;
+        dateEl.appendChild(dateHeader);
+        // create and add card body
+        var dateBody = document.createElement("span");
+        dateBody.classList = "card-content";
+          // add pay days to card-body
+  
+          // add expenses to card-body
+        for(var d = 0; d < expenses.length; d++) {
+          if(expenses[i] === "9th") {
+            console.log(expenses[i]);
+          }
+        }
+        dateEl.appendChild(dateBody);
+        calDates.appendChild(dateEl);
+      }
+    };
 
     // function to calculate and display in calculator
 
@@ -85,7 +122,8 @@ var calRemaining = "";
     // get localStorage
 
 
-    // calendar generation/display
+  // calendar generation/display
+createCalendar();
 
 
 // event listeners
