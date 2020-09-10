@@ -1,0 +1,9 @@
+#calGrid {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    grid-template-rows: 30px repeat(5, 95px);
+}
+
+#calGrid div {
+    border: black solid 1px;
+}
