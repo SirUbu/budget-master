@@ -64,7 +64,10 @@ var calRemaining = "";
 
 
     // function to set expenses
+  $(document).ready(function() {
+    $('.modal').modal();
 
+  });
 
     // function to fetch holidays 
     
