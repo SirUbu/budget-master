@@ -75,6 +75,9 @@ var calRemaining = "";
 
     // function to generate and display calendar
     var createCalendar = function () {
+      // update month and year with current month and year
+      yearEl.textContent = moment().format("YYYY");
+      monthEl.textContent = moment().format("MMMM");
       // get the first day of the month
       var counter = parseInt(moment().format("D"));
       var firstOfMonth = moment().subtract(counter-1, 'days').format("dddd");
@@ -111,10 +114,16 @@ var calRemaining = "";
         dateHeader.textContent = firstSunday.format("Do");
         dateEl.appendChild(dateHeader);
         var dateBody = document.createElement("div"); dateBody.classList = "card-body";
+        // highlight current day of month
+        if(firstSunday.format("MM/DD/YYYY") === todayDate) {
+          dateEl.classList = "card blue";
+          dateHeader.classList = "card-title left-align orange";
+        }
         // add pay frequency
           // if semi-monthly and day of month add
           // if bi-weekly and date id = recent add
             // add 14 to recent date for that month
+        // highlight current pay period
         // add expenses based on day due
         for(var d = 0; d < expenses.length; d++) {
           if(firstSunday.format("Do") === expenses[d].day) {
@@ -125,16 +134,20 @@ var calRemaining = "";
             dateBody.appendChild(expenseEl);
             }
           }
-        }
           // if due on day not in month, add to last day of month
+          var endOfMonthInt = parseInt(endOfMonth.format("D"));
+          if(endOfMonthInt < 31) {
+            // use last day of month to add expenses of dates to 31st
+          }
+        }
+        // -----------------------
+        // add holidays
+        // -----------------------
         dateEl.appendChild(dateBody);
         calDatesEl.appendChild(dateEl);
         // reset firstSunday date
         var firstSunday = moment().subtract(additional, 'days');
       }
-      // update month and year with current month and year
-      yearEl.textContent = moment().format("YYYY");
-      monthEl.textContent = moment().format("MMMM");
       //     // add pay days to card-body
       //   if(payFrequency.type === "semi-monthly") {
       //     if(expenses[i].day === payFrequency.day1 || expenses[i].day === payFrequency.day2) {
@@ -152,9 +165,6 @@ var calRemaining = "";
       //       dateBody.appendChild(payEl);
       //     }
       //   }
-      //   dateEl.appendChild(dateBody);
-      //   calDatesEl.appendChild(dateEl);
-      // }
     };
 
     // function to calculate and display in calculator

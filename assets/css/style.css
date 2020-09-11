@@ -10,8 +10,13 @@ a {
 }
 
 #dateCard {
+    min-width: 70px;
     margin: 0;
     border-radius: 0;
     box-shadow: none;
     border: black solid 1px;
+}
+
+.card-body {
+    min-height: 60px;
 }
