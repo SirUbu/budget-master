@@ -11,3 +11,13 @@
 .card {
     margin: 0;
 }
+
+.container {
+    margin-right:0;
+    margin-left:40px;
+    padding-right:0;
+    padding-left:0;
+}
+.expense-row {
+    border: dashed lightgray 1px;
+}
