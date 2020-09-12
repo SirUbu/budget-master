@@ -128,16 +128,25 @@ var calRemaining = "";
         for(var d = 0; d < expenses.length; d++) {
           if(firstSunday.format("Do") === expenses[d].day) {
             for(var e = 0; e < expenses[d].expenseList.length; e++) {
-            var expenseEl = document.createElement("p");
-            expenseEl.textContent = expenses[d].expenseList[e].name;
-            expenseEl.classList = "red";
-            dateBody.appendChild(expenseEl);
+              var expenseEl = document.createElement("p");
+              expenseEl.textContent = expenses[d].expenseList[e].name;
+              expenseEl.classList = "red";
+              dateBody.appendChild(expenseEl);
             }
           }
-          // if due on day not in month, add to last day of month
-          var endOfMonthInt = parseInt(endOfMonth.format("D"));
-          if(endOfMonthInt < 31) {
-            // use last day of month to add expenses of dates to 31st
+        }
+        // if due on day not in month, add to last day of month
+        var endOfMonthInt = parseInt(endOfMonth.format("D"));
+        var dateDiff = 31 - endOfMonthInt;
+        if(endOfMonthInt < 31) {
+          // use last day of month to add expenses of dates to 31st
+          if(firstSunday.format("MM/DD") === endOfMonth.format("MM/DD")) {
+            for(var f = 0; f < expenses[endOfMonthInt - 1 + dateDiff].expenseList.length; f++) {
+              var expenseEl = document.createElement("p");
+              expenseEl.textContent = expenses[endOfMonthInt - 1 + dateDiff].expenseList[f].name;
+              expenseEl.classList = "red";
+              dateBody.appendChild(expenseEl);
+            }
           }
         }
         // -----------------------
