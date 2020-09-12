@@ -8,7 +8,7 @@ var monthEl = document.querySelector("#month");
 // set global variable 
 var todayDate = moment().format("MM/DD/YYYY");
   //variables from set pay frequency function
-var payFrequency = {type: "bi-weekly", recent: "09/04/2020"};
+var payFrequency = {type: "bi-weekly", recent: "08/21/2020"};
     // {type: "semi-monthly",
     //  day1: "5th",
     //  day2: "22nd"}
@@ -121,9 +121,31 @@ var calRemaining = "";
         }
         // add pay frequency
           // if semi-monthly and day of month add
-          // if bi-weekly and date id = recent add
-            // add 14 to recent date for that month
+        if(payFrequency.type === "semi-monthly") {
+          if(firstSunday.format("Do") === payFrequency.day1 || firstSunday.format("Do") === payFrequency.day2) {
+            var payEl = document.createElement("p");
+            payEl.classList = "green";
+            payEl.textContent = "Pay Day";
+            dateBody.appendChild(payEl);
+          }
+          // if bi-weekly and day of month add
+        } else if(payFrequency.type === "bi-weekly") {
+          // while the month of the entered recent pay does not equal the current month, add 14 days
+          var formatDate = "MM/DD/YYYY"
+          var recentPayMoment = moment(payFrequency.recent, formatDate);
+          while(recentPayMoment.format("MM/YYYY") !== moment().format("MM/YYYY")) {
+            recentPayMoment = moment(payFrequency.recent, formatDate).add(14, 'days');
+          }
+          if(firstSunday.format("MM/DD") === recentPayMoment.format("MM/DD") || firstSunday.format("MM/DD") === recentPayMoment.add(14, 'days').format("MM/DD") || firstSunday.format("MM/DD") === recentPayMoment.add(14, 'days').format("MM/DD")) {
+            var payEl = document.createElement("p");
+            payEl.classList = "green";
+            payEl.textContent = "Pay Day";
+            dateBody.appendChild(payEl);
+          }
+        }
+        // ---------------------------------
         // highlight current pay period
+        // ---------------------------------
         // add expenses based on day due
         for(var d = 0; d < expenses.length; d++) {
           if(firstSunday.format("Do") === expenses[d].day) {
@@ -157,23 +179,6 @@ var calRemaining = "";
         // reset firstSunday date
         var firstSunday = moment().subtract(additional, 'days');
       }
-      //     // add pay days to card-body
-      //   if(payFrequency.type === "semi-monthly") {
-      //     if(expenses[i].day === payFrequency.day1 || expenses[i].day === payFrequency.day2) {
-      //       var payEl = document.createElement("p");
-      //       payEl.classList = "green";
-      //       payEl.textContent = "Pay Day";
-      //       dateBody.appendChild(payEl);
-      //     }
-      //   } else if(payFrequency.type === "bi-weekly") {
-      //     var nextPay = payFrequency.recent
-      //     if(expenses[i].day === payFrequency.recent) {
-      //       var payEl = document.createElement("p");
-      //       payEl.classList = "green";
-      //       payEl.textContent = "Pay Day";
-      //       dateBody.appendChild(payEl);
-      //     }
-      //   }
     };
 
     // function to calculate and display in calculator
