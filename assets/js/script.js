@@ -8,7 +8,7 @@ var monthEl = document.querySelector("#month");
 // set global variable 
 var todayDate = moment().format("MM/DD/YYYY");
   //variables from set pay frequency function
-var payFrequency = {type: "bi-weekly", recent: "08/21/2020"};
+var payFrequency = {type: "bi-weekly", recent: "09/04/2020"};
     // {type: "semi-monthly",
     //  day1: "5th",
     //  day2: "22nd"}
@@ -19,7 +19,7 @@ var payFrequency = {type: "bi-weekly", recent: "08/21/2020"};
 var expenses = [
     // {day: "1st", expenseList: [{name: "", description: "",amount: "", status: false}]},
     {day: "1st", expenseList: [], number: "1"},
-    {day: "2nd", expenseList: [], number: "2"},
+    {day: "2nd", expenseList: [{name: "Mortgage", description: "Mortgage", amount: "$1500", status: false}], number: "2"},
     {day: "3rd", expenseList: [], number: "3"},
     {day: "4th", expenseList: [], number: "4"},
     {day: "5th", expenseList: [{name: "Verizon", description: "Phone Bill", amount: "$80", status: false}], number: "5"},
@@ -97,36 +97,43 @@ var calRemaining = "";
         additional = counter - 1 + 1;
       }
       // get the day that the calendar starts on
-      var firstSunday = moment().subtract(additional, 'days');
+      var loopDay = moment().subtract(additional, 'days');
       // take current month and get end of current month
       var endOfMonth = moment().add(1, 'month').subtract(counter, 'days');
       // take current day and get end of previous month
       var previousMonthEnd = moment().subtract(counter, 'days');
       // iterate to create month
       for(var i = 0; i < 35; i++) {
-        var dateAtt = firstSunday.add(i, 'days').format("MM/DD/YYYY");
+        var dateAtt = loopDay.add(i, 'days').format("MM/DD/YYYY");
         var dateEl = document.createElement("div");
         dateEl.classList = "card";
         dateEl.setAttribute("id", "dateCard");
         dateEl.setAttribute("date", dateAtt);
         var dateHeader = document.createElement("div");
-        dateHeader.classList = "card-title left-align grey";
-        dateHeader.textContent = firstSunday.format("Do");
+        dateHeader.classList = "card-title left-align blue-grey darken-2 white-text";
+        dateHeader.textContent = loopDay.format("Do");
         dateEl.appendChild(dateHeader);
         var dateBody = document.createElement("div"); dateBody.classList = "card-body";
-        // highlight current day of month
-        if(firstSunday.format("MM/DD/YYYY") === todayDate) {
-          dateEl.classList = "card blue";
-          dateHeader.classList = "card-title left-align orange";
-        }
         // add pay frequency
           // if semi-monthly and day of month add
         if(payFrequency.type === "semi-monthly") {
-          if(firstSunday.format("Do") === payFrequency.day1 || firstSunday.format("Do") === payFrequency.day2) {
+          if(loopDay.format("Do") === payFrequency.day1 || loopDay.format("Do") === payFrequency.day2) {
             var payEl = document.createElement("p");
             payEl.classList = "green";
             payEl.textContent = "Pay Day";
             dateBody.appendChild(payEl);
+          }
+          // highlight if date is in pay period
+          if(parseInt(loopDay.format("Do")) >= parseInt(payFrequency.day1) && parseInt(loopDay.format("Do")) < parseInt(payFrequency.day2)) {
+            dateEl.classList = "card grey";
+            // push expenses to payPeriodExpenses
+            for(var c = 0; c < expenses.length; c ++) {
+              if(expenses[c].day === loopDay.format("Do")) {
+                for(var p = 0; p < expenses[c].expenseList.length; p++) {
+                  payPeriodExpenses.push(expenses[c].expenseList[p]);
+                }
+              }
+            }
           }
           // if bi-weekly and day of month add
         } else if(payFrequency.type === "bi-weekly") {
@@ -136,19 +143,23 @@ var calRemaining = "";
           while(recentPayMoment.format("MM/YYYY") !== moment().format("MM/YYYY")) {
             recentPayMoment = moment(payFrequency.recent, formatDate).add(14, 'days');
           }
-          if(firstSunday.format("MM/DD") === recentPayMoment.format("MM/DD") || firstSunday.format("MM/DD") === recentPayMoment.add(14, 'days').format("MM/DD") || firstSunday.format("MM/DD") === recentPayMoment.add(14, 'days').format("MM/DD")) {
+          if(loopDay.format("MM/DD") === recentPayMoment.format("MM/DD") || loopDay.format("MM/DD") === recentPayMoment.add(14, 'days').format("MM/DD") || loopDay.format("MM/DD") === recentPayMoment.add(14, 'days').format("MM/DD")) {
             var payEl = document.createElement("p");
             payEl.classList = "green";
             payEl.textContent = "Pay Day";
             dateBody.appendChild(payEl);
           }
+          if(parseInt(loopDay.format("Do")) >= parseInt(recentPayMoment.format("Do"))) {
+
+          }
         }
         // ---------------------------------
         // highlight current pay period
+        // if date in pay period push to payPeriod array
         // ---------------------------------
         // add expenses based on day due
         for(var d = 0; d < expenses.length; d++) {
-          if(firstSunday.format("Do") === expenses[d].day) {
+          if(loopDay.format("Do") === expenses[d].day) {
             for(var e = 0; e < expenses[d].expenseList.length; e++) {
               var expenseEl = document.createElement("p");
               expenseEl.textContent = expenses[d].expenseList[e].name;
@@ -162,7 +173,7 @@ var calRemaining = "";
         var dateDiff = 31 - endOfMonthInt;
         if(endOfMonthInt < 31) {
           // use last day of month to add expenses of dates to 31st
-          if(firstSunday.format("MM/DD") === endOfMonth.format("MM/DD")) {
+          if(loopDay.format("MM/DD") === endOfMonth.format("MM/DD")) {
             for(var f = 0; f < expenses[endOfMonthInt - 1 + dateDiff].expenseList.length; f++) {
               var expenseEl = document.createElement("p");
               expenseEl.textContent = expenses[endOfMonthInt - 1 + dateDiff].expenseList[f].name;
@@ -171,13 +182,18 @@ var calRemaining = "";
             }
           }
         }
+        // highlight current day of month
+        if(loopDay.format("MM/DD/YYYY") === todayDate) {
+          dateEl.classList = "card blue";
+          dateHeader.classList = "card-title left-align orange";
+        }
         // -----------------------
         // add holidays
         // -----------------------
         dateEl.appendChild(dateBody);
         calDatesEl.appendChild(dateEl);
-        // reset firstSunday date
-        var firstSunday = moment().subtract(additional, 'days');
+        // reset loopDay date
+        var loopDay = moment().subtract(additional, 'days');
       }
     };
 
