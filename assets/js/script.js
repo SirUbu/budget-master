@@ -55,6 +55,19 @@ var calPaid = "";
 var calOutstanding = "";
 var calRemaining = "";
 
+// add modal functionality
+$(document).ready(function() {
+  $('.modal').modal();
+});
+
+$('.modal-day').click(function() {
+  var modalDay=($(this).attr("id").replace("exp",""));
+  $('.modalDay').text("Day: " + modalDay);
+})
+
+$('#saveIco').click(function() {
+  
+})
 
 // functions
     // function to fetch and display quote
@@ -64,10 +77,7 @@ var calRemaining = "";
 
 
     // function to set expenses
-  $(document).ready(function() {
-    $('.modal').modal();
 
-  });
 
     // function to fetch holidays 
     
