@@ -8,7 +8,7 @@ var monthEl = document.querySelector("#month");
 // set global variable 
 var todayDate = moment().format("MM/DD/YYYY");
   //variables from set pay frequency function
-var payFrequency = {type: "bi-weekly", recent: "08/07/2020"};
+var payFrequency = {};
     // {type: "semi-monthly",
     //  day1: "5th",
     //  day2: "22nd"}
@@ -19,14 +19,14 @@ var payFrequency = {type: "bi-weekly", recent: "08/07/2020"};
 var expenses = [
     // {day: "1st", expenseList: [{name: "", description: "",amount: "", status: false}]},
     {day: "1st", expenseList: [], number: "1"},
-    {day: "2nd", expenseList: [{name: "Mortgage", description: "Mortgage", amount: "$1500", status: false}], number: "2"},
+    {day: "2nd", expenseList: [], number: "2"},
     {day: "3rd", expenseList: [], number: "3"},
     {day: "4th", expenseList: [], number: "4"},
-    {day: "5th", expenseList: [{name: "Verizon", description: "Phone Bill", amount: "$80", status: false}], number: "5"},
+    {day: "5th", expenseList: [], number: "5"},
     {day: "6th", expenseList: [], number: "6"},
     {day: "7th", expenseList: [], number: "7"},
     {day: "8th", expenseList: [], number: "8"},
-    {day: "9th", expenseList: [{name: "Wells Fargo", description: "Credit Card", amount: "$25", status: false},{name: "Rent", description: "Rent", amount: "$500", status: false}], number: "9"},
+    {day: "9th", expenseList: [], number: "9"},
     {day: "10th", expenseList: [], number: "10"},
     {day: "11th", expenseList: [], number: "11"},
     {day: "12th", expenseList: [], number: "12"},
@@ -36,7 +36,7 @@ var expenses = [
     {day: "16th", expenseList: [], number: "16"},
     {day: "17th", expenseList: [], number: "17"},
     {day: "18th", expenseList: [], number: "18"},
-    {day: "19th", expenseList: [{name: "Car Loan", description: "Mountain America", amount: "$250", status: false},], number: "19"},
+    {day: "19th", expenseList: [], number: "19"},
     {day: "20th", expenseList: [], number: "20"},
     {day: "21st", expenseList: [], number: "21"},
     {day: "22nd", expenseList: [], number: "22"},
@@ -48,7 +48,7 @@ var expenses = [
     {day: "28th", expenseList: [], number: "28"},
     {day: "29th", expenseList: [], number: "29"},
     {day: "30th", expenseList: [], number: "30"},
-    {day: "31st", expenseList: [{name: "Utilities", description: "Power", amount: "$100", status: false}], number: "31"},
+    {day: "31st", expenseList: [], number: "31"},
 ];
   // variable for pay period expenses
 var payPeriodExpenses = [];
