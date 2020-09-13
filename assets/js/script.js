@@ -64,29 +64,8 @@ $('.modal-day').click(function() {
   var modalDay=($(this).attr("id").replace("exp",""));
   $('.modalDay').text("Day: " + modalDay);
   $('#name, #desc, #amt').val("");
-
 })
 
-$('#saveIco').click(function() {
-  var expDay = $('.modalDay').text().replace("Day: ","").trim();
-  expIndex = (expDay.substring(0, expDay.length-2) - 1)
-  var expName = $('#name').val().trim();
-  var expDesc = $('#desc').val().trim();
-  var expAmt = $('#amt').val().trim();
-  expenses[expIndex].expenseList.push({
-    name: expName,
-    description: expDesc,
-    amount: expAmt
-  })
-  console.log(expenses[expIndex].expenseList);
-})
-
-// $('#delIco').click(function() {
-//   console.log($('.modalDay').text().replace("Day: ",""))
-//   console.log($('#name').val().trim());
-//   console.log($('#desc').val().trim());
-//   console.log($('#amt').val().trim());
-// })
 
 
 // functions
@@ -97,8 +76,31 @@ $('#saveIco').click(function() {
 
 
     // function to set expenses
+    $('#saveIco').click(function() {      
+      var expDay = $('.modalDay').text().replace("Day: ","").trim();
+      var savModal = "exp" + expDay;
+      expIndex = (expDay.substring(0, expDay.length-2) - 1)
+      var expName = $('#name').val().trim();
+      var expDesc = $('#desc').val().trim();
+      var expAmt = $('#amt').val().trim();
+      expenses[expIndex].expenseList.push({
+        name: expName,
+        description: expDesc,
+        amount: expAmt
+      })
 
+      $('#'+savModal).parent().parent().siblings().append( "<p class='expItem'>" + expName + "</p>")
+      //console.log(savModal);
 
+      
+    })
+    // function to delete an expense
+    $('#delIco').click(function() {
+      var expDay = $('.modalDay').text().replace("Day: ","").trim();
+      expIndex = (expDay.substring(0, expDay.length-2) - 1)
+      expenses[expIndex].expenseList = [];
+      console.log(expenses[expIndex].expenseList)
+    })
     // function to fetch holidays 
     
 
@@ -109,14 +111,17 @@ $('#saveIco').click(function() {
 
 
     // function to save localStorage
-
-
+    var saveExp = function () {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+    }
     // function to get localStorage
-
+    var getExp = function () {
+      expenses = JSON.parse(localStorage.getItem("expenses"));
+    }
 
 // call functions
-    // get localStorage
-
+  // get localStorage
+  getExp();
 
     // calendar generation/display
 

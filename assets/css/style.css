@@ -20,9 +20,20 @@
 }
 
 .expense-row {
-    border: dashed lightgray 1px;
+    border: dashed lightgray 1px;    
+}
+.expCol {
+    display: inline-flex;
 }
 textarea {
     background: white;
     text-align: center;
+}
+.expItem {
+    background: teal;
+    color: yellowgreen;
+    padding: 7px;
+    margin: 2px;
+    margin-top: 9px;
+    border-radius: 7px;
 }
