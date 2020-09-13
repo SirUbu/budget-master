@@ -90,17 +90,25 @@ $('.modal-day').click(function() {
       })
 
       $('#'+savModal).parent().parent().siblings().append( "<p class='expItem'>" + expName + "</p>")
-      //console.log(savModal);
-
-      
+      saveExp();      
+      // set index so it can be recalled refer to taskmaster
     })
+    
     // function to delete an expense
     $('#delIco').click(function() {
       var expDay = $('.modalDay').text().replace("Day: ","").trim();
       expIndex = (expDay.substring(0, expDay.length-2) - 1)
+      // this is only a placeholder. currently clearing out entire array for this day.
       expenses[expIndex].expenseList = [];
-      console.log(expenses[expIndex].expenseList)
+      saveExp();
     })
+
+    // function to recall an expense from local storage to edit
+    $('.expItem').click(function() {
+
+
+    })
+
     // function to fetch holidays 
     
 
@@ -115,8 +123,13 @@ $('.modal-day').click(function() {
     localStorage.setItem("expenses", JSON.stringify(expenses));
     }
     // function to get localStorage
-    var getExp = function () {
-      expenses = JSON.parse(localStorage.getItem("expenses"));
+    var getExp = function () {  
+  recallExp = JSON.parse(localStorage.getItem("expenses"));
+    // if array exists, replace empty array with it
+  if (recallExp) {
+    expenses = recallExp;
+  } 
+    
     }
 
 // call functions
