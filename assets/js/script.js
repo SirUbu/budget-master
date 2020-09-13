@@ -63,11 +63,31 @@ $(document).ready(function() {
 $('.modal-day').click(function() {
   var modalDay=($(this).attr("id").replace("exp",""));
   $('.modalDay').text("Day: " + modalDay);
+  $('#name, #desc, #amt').val("");
+
 })
 
 $('#saveIco').click(function() {
-  
+  var expDay = $('.modalDay').text().replace("Day: ","").trim();
+  expIndex = (expDay.substring(0, expDay.length-2) - 1)
+  var expName = $('#name').val().trim();
+  var expDesc = $('#desc').val().trim();
+  var expAmt = $('#amt').val().trim();
+  expenses[expIndex].expenseList.push({
+    name: expName,
+    description: expDesc,
+    amount: expAmt
+  })
+  console.log(expenses[expIndex].expenseList);
 })
+
+// $('#delIco').click(function() {
+//   console.log($('.modalDay').text().replace("Day: ",""))
+//   console.log($('#name').val().trim());
+//   console.log($('#desc').val().trim());
+//   console.log($('#amt').val().trim());
+// })
+
 
 // functions
     // function to fetch and display quote
