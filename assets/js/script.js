@@ -8,7 +8,7 @@ var monthEl = document.querySelector("#month");
 // set global variable 
 var todayDate = moment().format("MM/DD/YYYY");
   //variables from set pay frequency function
-var payFrequency = {type: "bi-weekly", recent: "09/04/2020"};
+var payFrequency = {type: "bi-weekly", recent: "08/07/2020"};
     // {type: "semi-monthly",
     //  day1: "5th",
     //  day2: "22nd"}
@@ -102,6 +102,26 @@ var calRemaining = "";
       var endOfMonth = moment().add(1, 'month').subtract(counter, 'days');
       // take current day and get end of previous month
       var previousMonthEnd = moment().subtract(counter, 'days');
+      // if bi-weekly payFrequency, set recentPayMoment
+      if(payFrequency.type === "bi-weekly") {
+        // make recent pay a moment date
+        var formatDate = "MM/DD/YYYY"
+        var recentPayMoment = moment(payFrequency.recent, formatDate);
+        // while recentPayMoment is not in the current month, add 14 days until in current month
+        while(parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
+          recentPayMoment.add(14, 'days');
+        };
+        var nextPayDate = recentPayMoment.add(14, 'days');
+        recentPayMoment = moment(payFrequency.recent, formatDate);
+        while(parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
+          recentPayMoment.add(14, 'days');
+        };
+        var lastPayDate = recentPayMoment.add(28, 'days');
+        recentPayMoment = moment(payFrequency.recent, formatDate);
+        while(parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
+          recentPayMoment.add(14, 'days');
+        };
+      }
       // iterate to create month
       for(var i = 0; i < 35; i++) {
         var dateAtt = loopDay.add(i, 'days').format("MM/DD/YYYY");
@@ -137,26 +157,25 @@ var calRemaining = "";
           }
           // if bi-weekly and day of month add
         } else if(payFrequency.type === "bi-weekly") {
-          // while the month of the entered recent pay does not equal the current month, add 14 days
-          var formatDate = "MM/DD/YYYY"
-          var recentPayMoment = moment(payFrequency.recent, formatDate);
-          while(recentPayMoment.format("MM/YYYY") !== moment().format("MM/YYYY")) {
-            recentPayMoment = moment(payFrequency.recent, formatDate).add(14, 'days');
-          }
-          if(loopDay.format("MM/DD") === recentPayMoment.format("MM/DD") || loopDay.format("MM/DD") === recentPayMoment.add(14, 'days').format("MM/DD") || loopDay.format("MM/DD") === recentPayMoment.add(14, 'days').format("MM/DD")) {
+          if(loopDay.format("MM/DD") === recentPayMoment.format("MM/DD") || loopDay.format("MM/DD") === nextPayDate.format("MM/DD") || loopDay.format("MM/DD") === lastPayDate.format("MM/DD")) {
             var payEl = document.createElement("p");
             payEl.classList = "green";
             payEl.textContent = "Pay Day";
             dateBody.appendChild(payEl);
           }
-          if(parseInt(loopDay.format("Do")) >= parseInt(recentPayMoment.format("Do"))) {
-
+          // highlight if date is in pay period
+          if(parseInt(loopDay.format("Do")) >= parseInt(recentPayMoment.format("Do")) && parseInt(loopDay.format("Do")) < parseInt(nextPayDate.format("Do")) || parseInt(loopDay.format("Do")) >= parseInt(nextPayDate.format("Do")) && parseInt(loopDay.format("Do")) < parseInt(lastPayDate.format("Do")) ) {
+            dateEl.classList = "card grey";
+            // push expenses to payPeriodExpenses
+            for(var c = 0; c < expenses.length; c ++) {
+              if(expenses[c].day === loopDay.format("Do")) {
+                for(var p = 0; p < expenses[c].expenseList.length; p++) {
+                  payPeriodExpenses.push(expenses[c].expenseList[p]);
+                }
+              }
+            }
           }
         }
-        // ---------------------------------
-        // highlight current pay period
-        // if date in pay period push to payPeriod array
-        // ---------------------------------
         // add expenses based on day due
         for(var d = 0; d < expenses.length; d++) {
           if(loopDay.format("Do") === expenses[d].day) {
