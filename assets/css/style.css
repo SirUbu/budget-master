@@ -11,7 +11,9 @@
 .card {
     margin: 0;
 }
-
+.hidden {
+    display:none;
+}
 .container {
     margin-right:0;
     margin-left:40px;
@@ -22,7 +24,7 @@
     font-size: 15px;
 }
 
-i:hover { cursor: pointer; }
+i:hover, .edit:hover { cursor: pointer; }
 
 .expense-row {
     border: dashed lightgray 1px;    

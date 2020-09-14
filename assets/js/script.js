@@ -75,7 +75,18 @@ $('.modal-day').click(function () {
 // function to set pay frequency
 
 // function to create elements
-  // var createElem = function()
+  var createElem = function(index, day, name, description, amount, status){
+    console.log(index);
+    console.log(name);
+    console.log(description);
+    console.log(amount);
+    console.log(status);
+    
+    // put it all into expense item, hide some of it
+    var expId = "#exp" + day
+    $(expId).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${index}" href="#expenses-sub"><p>${name}: ${amount}</p><p class="hidden">${description}</p><p class="hidden">${status}</p></div>`)
+
+  }
   // create elements that make up an expense item
     // find where it goes
     // put them in, in sequence
@@ -85,7 +96,6 @@ $('.modal-day').click(function () {
 // function to set expenses
 $('#saveIco').click(function () {
   var expDay = $('.modalDay').text().replace("Day: ", "").trim();
-  var savModal = "exp" + expDay;
   expIndex = (expDay.substring(0, expDay.length - 2) - 1)
   var expName = $('#name').val().trim();
   var expDesc = $('#desc').val().trim();
@@ -96,9 +106,9 @@ $('#saveIco').click(function () {
     amount: expAmt,
     status: false
   })
-
-  $('#' + savModal).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${expIndex}" href="#expenses-sub">${expName}</div>`)
+  
   saveExp();
+  getExp();
 })
 
 // function to delete an expense
@@ -154,18 +164,9 @@ var getExp = function () {
     expenses = recallExp;    
   } 
   $.each(expenses, function(day){
-    console.log(expenses[day].day);
-    $.each(expenses[day].expenseList, function(elem, boss){
-      console.log(boss.name);
+    $.each(expenses[day].expenseList, function(a, elem){
+      createElem(day, expenses[day].day, elem.name, elem.description, elem.amount, elem.status);
     })
-      // console.log(day);
-      // console.log(arr);
-      // console.log(expense.description)
-      // console.log(expense.amount)
-      // console.log(expense.status)
-
-      // createElem(day.name, day.description, day.amount, day.status)
-    // })
   })
   } 
 
