@@ -231,6 +231,6 @@ var calRemaining = "";
 
   // calendar generation/display
 createCalendar();
-
+setInterval(createCalendar, ((60*1000)*60)*6);
 
 // event listeners
