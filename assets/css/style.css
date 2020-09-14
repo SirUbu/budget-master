@@ -8,6 +8,22 @@
     border: black solid 1px;
 }
 
+  select {
+    display: block;
+ }  
+
 .card {
     margin: 0;
+}
+
+.red {
+    background-color: aqua;
+}
+
+.datepicker {
+    color:blue;
+}
+
+.hide {
+    display:none;
 }
