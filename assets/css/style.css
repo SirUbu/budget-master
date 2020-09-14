@@ -18,6 +18,11 @@
     padding-right:0;
     padding-left:0;
 }
+.edit {
+    font-size: 15px;
+}
+
+i:hover { cursor: pointer; }
 
 .expense-row {
     border: dashed lightgray 1px;    
