@@ -75,27 +75,17 @@ $('.modal-day').click(function () {
 // function to set pay frequency
 
 // function to create elements
-  var createElem = function(index, day, name, description, amount, status){
-    console.log(index);
-    console.log(name);
-    console.log(description);
-    console.log(amount);
-    console.log(status);
-    
-    // put it all into expense item, hide some of it
-    var expId = "#exp" + day
-    $(expId).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${index}" href="#expenses-sub"><p>${name}: ${amount}</p><p class="hidden">${description}</p><p class="hidden">${status}</p></div>`)
-
+  var createElem = function(index, day, name, description, amount){
+    var expId = "#exp" + day    
+    $(expId).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${index}" href="#expenses-sub"><p class="name">${name}</p><p class="amount">${amount}</p><p class="hidden description">${description}</p></div>`)
   }
-  // create elements that make up an expense item
-    // find where it goes
-    // put them in, in sequence
-    // give them a unique id so it can find the index in the array
+
 
 
 // function to set expenses
 $('#saveIco').click(function () {
   var expDay = $('.modalDay').text().replace("Day: ", "").trim();
+  var savModal = "#exp" + expDay;
   expIndex = (expDay.substring(0, expDay.length - 2) - 1)
   var expName = $('#name').val().trim();
   var expDesc = $('#desc').val().trim();
@@ -105,10 +95,9 @@ $('#saveIco').click(function () {
     description: expDesc,
     amount: expAmt,
     status: false
-  })
-  
+  })  
   saveExp();
-  getExp();
+  $(savModal).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${expIndex}" href="#expenses-sub"><p class="name">${expName}</p><p class="amount">${expAmt}</p><p class="hidden description">${expDesc}</p></div>`)
 })
 
 // function to delete an expense
@@ -122,20 +111,19 @@ $('#delIco').click(function () {
 
 // function to edit
 $(document).on('click', '.edit', function () {
-  var dayIndex = $('.expItem').attr('class').split(' ')[1].replace('dayIndex', '').trim();
-  var name = $(this).text().replace('edit', '');
+  var dayIndex = $('.expItem').attr('class').split(' ')[3].replace('dayIndex', '').trim();
 
   // var index = $(this)
   //   .closest(".list-group-item")
   //   .index();
   // // tasks[status][index].text = text;
-
-  // console.log(editIndex);      
-  console.log(jQuery.inArray(name, expenses[dayIndex].expenseList[0]))
-
-  $('#name').val(expenses[dayIndex].expenseList[0].name);
-  $('#desc').val(expenses[dayIndex].expenseList[0].description);
-  $('#amt').val(expenses[dayIndex].expenseList[0].amount);
+  // console.log(($(this).children('.name').text()));
+  var name = ($(this).children('.name').text());
+  var desc = ($(this).children('.description').text());
+  var amt = ($(this).children('.amount').text());
+  $('#name').val(name);
+  $('#desc').val(desc);
+  $('#amt').val(amt);
 
 })
 // $('.edit').click(function() {
@@ -162,7 +150,7 @@ var getExp = function () {
   // if array exists, replace empty array with it
   if (recallExp) {
     expenses = recallExp;    
-  } 
+  }  
   $.each(expenses, function(day){
     $.each(expenses[day].expenseList, function(a, elem){
       createElem(day, expenses[day].day, elem.name, elem.description, elem.amount, elem.status);
