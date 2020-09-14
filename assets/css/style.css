@@ -2,11 +2,13 @@
     display: grid;
     grid-template-columns: repeat(7, auto);
     grid-template-rows: 30px repeat(5, auto);
+    border: solid black 1px;
 }
 
-#calGrid div {
-    border: black solid 1px;
+a {
+    margin-top: 5px;
 }
+
 
   select {
     display: block;
@@ -26,4 +28,17 @@
 
 .hide {
     display:none;
+}
+
+#dateCard {
+    min-width: 70px;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: black solid 1px;
+}
+
+.card-body {
+    min-height: 60px;
+
 }
