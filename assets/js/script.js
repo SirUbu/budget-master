@@ -77,7 +77,7 @@ $('.modal-day').click(function () {
 // function to create elements
   var createElem = function(index, day, name, description, amount){
     var expId = "#exp" + day    
-    $(expId).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${index}" href="#expenses-sub"><p class="name">${name}</p><p class="amount">${amount}</p><p class="hidden description">${description}</p></div>`)
+    $(expId).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${index}" href="#expenses-sub"><p class="name">${name}</p><p class="amount">${amount}</p><p class="hide description">${description}</p></div>`)
   }
 
 
@@ -97,26 +97,28 @@ $('#saveIco').click(function () {
     status: false
   })  
   saveExp();
-  $(savModal).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${expIndex}" href="#expenses-sub"><p class="name">${expName}</p><p class="amount">${expAmt}</p><p class="hidden description">${expDesc}</p></div>`)
+  $(savModal).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${expIndex}" href="#expenses-sub"><p class="name">${expName}</p><p class="amount">${expAmt}</p><p class="hide description">${expDesc}</p></div>`)
 })
 
 // function to delete an expense
-$('#delIco').click(function () {
-  var expDay = $('.modalDay').text().replace("Day: ", "").trim();
-  expIndex = (expDay.substring(0, expDay.length - 2) - 1)
+$('#delIco').click(function() {
+  var dayIndex = $(this).attr('class').split(' ')[3].replace('dayIndex', '').trim();
+  var expIndex = $(this).attr('class').split(' ')[4].replace('expIndex', '').trim();
   // this is only a placeholder. currently clearing out entire array for this day.
-  expenses[expIndex].expenseList = [];
+  // console.log(dayIndex);
+  expenses[dayIndex].expenseList[expIndex] = null;
+  $("#delIco").addClass("hide")
   saveExp();
 })
 
 // function to edit
-$(document).on('click', '.edit', function () {
-  var dayIndex = $('.expItem').attr('class').split(' ')[3].replace('dayIndex', '').trim();
-
-  // var index = $(this)
-  //   .closest(".list-group-item")
-  //   .index();
-  // // tasks[status][index].text = text;
+$(document).on('click', '.edit', function () { 
+  var dayIndex = $(this).attr('class').split(' ')[3].trim();
+  var expIndex = $(this).index();
+  expIndex = "expIndex" + expIndex;
+    // .closest(".list-group-item")
+    // .index();
+  // tasks[status][index].text = text;
   // console.log(($(this).children('.name').text()));
   var name = ($(this).children('.name').text());
   var desc = ($(this).children('.description').text());
@@ -124,13 +126,10 @@ $(document).on('click', '.edit', function () {
   $('#name').val(name);
   $('#desc').val(desc);
   $('#amt').val(amt);
-
+  $("#delIco").removeClass("hide");
+  $("#delIco").addClass(dayIndex);
+  $("#delIco").addClass(expIndex);
 })
-// $('.edit').click(function() {
-//   console.log("hello");
-//   alert("hello");
-// })
-
 // function to fetch holidays 
 
 
