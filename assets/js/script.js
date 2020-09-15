@@ -1,3 +1,24 @@
+// Quote
+
+//app.js
+const url = "https://api.quotable.io/random";
+function generateQuote(){
+   fetch(url)
+  .then(function(data) {
+         return data.json();
+    })
+    .then(function(data){    
+    document.getElementById("quote").innerHTML = data.content;
+    document.getElementById("author").innerHTML = "- " + data.author;
+   })
+ .catch(function(err) {
+    console.log(err); 
+    });
+ }
+ 
+setInterval(generateQuote() ,8.64e+7);
+
+
 // get DOM elements
 var calDatesEl = document.querySelector("#calGrid");
 var cardContentEl = document.querySelector("#calBody");
