@@ -9,6 +9,27 @@ a {
     margin-top: 5px;
 }
 
+
+  select {
+    display: block;
+ }  
+
+.card {
+    margin: 0;
+}
+
+.red {
+    background-color: aqua;
+}
+
+.datepicker {
+    color:blue;
+}
+
+.hide {
+    display:none;
+}
+
 #dateCard {
     min-width: 70px;
     margin: 0;
@@ -19,5 +40,10 @@ a {
 
 .card-body {
     min-height: 60px;
+<<<<<<< HEAD
 }
 
+=======
+
+}
+>>>>>>> 880c6b8d026a84a4ed0be10dad1bc1eaf5c6f047
