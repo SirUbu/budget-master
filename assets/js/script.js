@@ -58,15 +58,25 @@ var calRemaining = "";
 // initialize modal functionality
 $(document).ready(function () {
   $('.modal').modal();
+  $(document).click(function(e){
+    if ($(e.target).is('#expenses-sub, #expenses-sub *, .edit, .edit * .modal-day, .modal-day *, .name, .amount')) {
+        return;
+    }
+    else
+    {
+        resetDelete();
+    }
 });
+  
+});
+
+
 
 $('.modal-day').click(function () {
   var modalDay = ($(this).attr("id").replace("exp", ""));
   $('.modalDay').text("Day: " + modalDay);
   $('#name, #desc, #amt').val("");
 })
-
-
 
 // functions
 // function to fetch and display quote
@@ -101,40 +111,38 @@ $('.save').click(function () {
   })  
   saveExp();
   $(savModal).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${expIndex}" href="#expenses-sub"><p class="name">${expName}</p><p class="amount">${expAmt}</p><p class="hide description">${expDesc}</p></div>`)
-  var parts = $('#delIco').attr('class').split(' ');
-  $('#delIco').removeClass(parts[3]);
-  $('#delIco').removeClass(parts[4]);
-  $('#delIco').addClass("hide");
+  resetDelete();
 })
 
 // function to delete an expense
 $('#delIco').click(function() {
-  var parts = $(this).attr('class').split(' ');
-  var dayIndex = parts[3].replace('dayIndex', '').trim();
-  var expIndex = parts[4].replace('expIndex', '').trim();
+  var dayIndex = $(this).attr('class').split(' ')[3].replace('dayIndex', '').trim();
+  var expIndex = $(this).attr('class').split(' ')[4].replace('expIndex', '').trim();
+  expenses[dayIndex].expenseList.splice(expIndex);
+  var thisIndex = ".thisIndex" + expIndex;
+  console.log(thisIndex);
+  $(thisIndex).remove();
 
-  console.log(dayIndex)
-  console.log(expIndex)
-  expenses[dayIndex].expenseList.splice(expIndex); 
-  var parts = $(this).attr('class').split(' ');
-  $('#delIco').removeClass(parts[3]);
-  $('#delIco').removeClass(parts[4]);
-  $('#delIco').addClass("hide");
+  resetDelete();
   saveExp();
 })
 
-$("#expenses-sub").on("blur", function(){
+var resetDelete = function () {
   var parts = $('#delIco').attr('class').split(' ');
   $('#delIco').removeClass(parts[3]);
   $('#delIco').removeClass(parts[4]);
   $('#delIco').addClass("hide");
-})
+}
+
+
 
 // function to edit
 $(document).on('click', '.edit', function () { 
   var dayIndex = $(this).attr('class').split(' ')[3].trim();
-  var expIndex = $(this).index();
-  expIndex = "expIndex" + expIndex;
+  var editIndex = $(this).index();
+  var expIndex = "expIndex" + editIndex;
+  var thisIndex = "thisIndex" + editIndex;
+  ($(this).addClass(thisIndex))
 
   var name = ($(this).children('.name').text());
   var desc = ($(this).children('.description').text());
