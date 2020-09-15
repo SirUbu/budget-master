@@ -58,6 +58,9 @@ var calRemaining = "";
 // initialize modal functionality
 $(document).ready(function () {
   $('.modal').modal();
+  $(".expCol").sortable({
+    connectWith: $(".expense-row *")
+  });
   $(document).click(function (e) {
     if ($(e.target).is('#expenses-sub, #expenses-sub *, .edit, .edit * .modal-day, .modal-day *, .name, .amount')) {
       return;
@@ -166,6 +169,26 @@ $(document).on('click', '.edit', function () {
   $("#delIco").addClass(dayIndex);
   $("#delIco").addClass(expIndex);
 })
+
+// draggable opeerations
+
+  
+
+
+// $(".expense-row").droppable({
+//   accept: ".expItem",
+//   tolerance: "touch",
+//   drop: function(event, ui) {
+//     ui.draggable.remove();
+//     $(".bottom-trash").removeClass("bottom-trash-drag");
+//   },
+//   over: function(event, ui) {
+//     $(".bottom-trash").addClass("bottom-trash-drag");
+//   },
+//   out: function(event, ui) {
+//     $(".bottom-trash").removeClass("bottom-trash-drag");
+//   }
+// });
 
 // function to fetch holidays 
 

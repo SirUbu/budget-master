@@ -28,6 +28,7 @@ i:hover, .edit:hover { cursor: pointer; }
 }
 .expCol {
     display: inline-flex;
+    height: 75px;
 }
 textarea {
     background: white;
