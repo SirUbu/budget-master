@@ -58,16 +58,15 @@ var calRemaining = "";
 // initialize modal functionality
 $(document).ready(function () {
   $('.modal').modal();
-  $(document).click(function(e){
+  $(document).click(function (e) {
     if ($(e.target).is('#expenses-sub, #expenses-sub *, .edit, .edit * .modal-day, .modal-day *, .name, .amount')) {
-        return;
+      return;
     }
-    else
-    {
-        resetDelete();
+    else {
+      resetDelete();
     }
-});
-  
+  });
+
 });
 
 
@@ -85,37 +84,49 @@ $('.modal-day').click(function () {
 // function to set pay frequency
 
 // function to create elements
-  var createElem = function(index, day, name, description, amount){
-    var expId = "#exp" + day    
-    $(expId).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${index}" href="#expenses-sub"><p class="name">${name}</p><p class="amount">${amount}</p><p class="hide description">${description}</p></div>`)
-  }
+var createElem = function (index, day, name, description, amount) {
+  var expId = "#exp" + day
+  $(expId).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${index}" href="#expenses-sub"><p class="name">${name}</p><p class="amount">${amount}</p><p class="hide description">${description}</p></div>`)
+}
 
 
 
 // function to set expenses
 $('.save').click(function () {
   var expDay = $('.modalDay').text().replace("Day: ", "").trim();
-  var savModal = "#exp" + expDay;  
-  expIndex = (expDay.substring(0, expDay.length - 2) - 1)
+  var savModal = "#exp" + expDay;
+  var expIndex = (expDay.substring(0, expDay.length - 2) - 1)
   var expName = $('#name').val().trim();
   var expDesc = $('#desc').val().trim();
   var expAmt = $('#amt').val().trim();
-  
+
   // needs to replace index of array instead
-    // if edit, retrieve index and don't push
-  expenses[expIndex].expenseList.push({
-    name: expName,
-    description: expDesc,
-    amount: expAmt,
-    status: false
-  })  
-  saveExp();
-  $(savModal).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${expIndex}" href="#expenses-sub"><p class="name">${expName}</p><p class="amount">${expAmt}</p><p class="hide description">${expDesc}</p></div>`)
-  resetDelete();
+  // if edit, retrieve index and don't push
+  if ($("#delIco").hasClass("hide")) {
+    expenses[expIndex].expenseList.push({
+      name: expName,
+      description: expDesc,
+      amount: expAmt,
+      status: false
+    });
+    $(savModal).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${expIndex}" href="#expenses-sub"><p class="name">${expName}</p><p class="amount">${expAmt}</p><p class="hide description">${expDesc}</p></div>`);
+  }
+  else {
+    var editIndex = $('#delIco').attr('class').split(' ')[4].replace('expIndex', '').trim();
+    var dayIndex = $('#delIco').attr('class').split(' ')[3].replace('dayIndex', '').trim();
+    expenses[dayIndex].expenseList[editIndex].name = expName;
+    expenses[dayIndex].expenseList[editIndex].description = expDesc;
+    expenses[dayIndex].expenseList[editIndex].amount = expAmt;
+    var thisIndex = ".thisIndex" + editIndex
+    $(thisIndex)[0].innerHTML = `<p class="name">${expName}</p><p class="amount">${expAmt}</p><p class="hide description">${expDesc}</p>`
+    resetDelete();
+  }
+  saveExp();   
 })
 
+
 // function to delete an expense
-$('#delIco').click(function() {
+$('#delIco').click(function () {
   var dayIndex = $(this).attr('class').split(' ')[3].replace('dayIndex', '').trim();
   var expIndex = $(this).attr('class').split(' ')[4].replace('expIndex', '').trim();
   expenses[dayIndex].expenseList.splice(expIndex);
@@ -137,7 +148,7 @@ var resetDelete = function () {
 
 
 // function to edit
-$(document).on('click', '.edit', function () { 
+$(document).on('click', '.edit', function () {
   var dayIndex = $(this).attr('class').split(' ')[3].trim();
   var editIndex = $(this).index();
   var expIndex = "expIndex" + editIndex;
@@ -174,19 +185,19 @@ var getExp = function () {
   recallExp = JSON.parse(localStorage.getItem("expenses"));
   // if array exists, replace empty array with it
   if (recallExp) {
-    expenses = recallExp;    
-  }  
-  $.each(expenses, function(day){
-    $.each(expenses[day].expenseList, function(skip, elem){
+    expenses = recallExp;
+  }
+  $.each(expenses, function (day) {
+    $.each(expenses[day].expenseList, function (skip, elem) {
       createElem(day, expenses[day].day, elem.name, elem.description, elem.amount, elem.status);
     })
   })
-  } 
+}
 
 
 // call functions
-  // get localStorage
-    getExp();
+// get localStorage
+getExp();
 
     // calendar generation/display
 
