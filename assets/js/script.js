@@ -83,13 +83,16 @@ $('.modal-day').click(function () {
 
 
 // function to set expenses
-$('#saveIco').click(function () {
+$('.save').click(function () {
   var expDay = $('.modalDay').text().replace("Day: ", "").trim();
-  var savModal = "#exp" + expDay;
+  var savModal = "#exp" + expDay;  
   expIndex = (expDay.substring(0, expDay.length - 2) - 1)
   var expName = $('#name').val().trim();
   var expDesc = $('#desc').val().trim();
   var expAmt = $('#amt').val().trim();
+  
+  // needs to replace index of array instead
+    // if edit, retrieve index and don't push
   expenses[expIndex].expenseList.push({
     name: expName,
     description: expDesc,
@@ -98,17 +101,33 @@ $('#saveIco').click(function () {
   })  
   saveExp();
   $(savModal).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${expIndex}" href="#expenses-sub"><p class="name">${expName}</p><p class="amount">${expAmt}</p><p class="hide description">${expDesc}</p></div>`)
+  var parts = $('#delIco').attr('class').split(' ');
+  $('#delIco').removeClass(parts[3]);
+  $('#delIco').removeClass(parts[4]);
+  $('#delIco').addClass("hide");
 })
 
 // function to delete an expense
 $('#delIco').click(function() {
-  var dayIndex = $(this).attr('class').split(' ')[3].replace('dayIndex', '').trim();
-  var expIndex = $(this).attr('class').split(' ')[4].replace('expIndex', '').trim();
-  // this is only a placeholder. currently clearing out entire array for this day.
-  // console.log(dayIndex);
-  expenses[dayIndex].expenseList[expIndex] = null;
-  $("#delIco").addClass("hide")
+  var parts = $(this).attr('class').split(' ');
+  var dayIndex = parts[3].replace('dayIndex', '').trim();
+  var expIndex = parts[4].replace('expIndex', '').trim();
+
+  console.log(dayIndex)
+  console.log(expIndex)
+  expenses[dayIndex].expenseList.splice(expIndex); 
+  var parts = $(this).attr('class').split(' ');
+  $('#delIco').removeClass(parts[3]);
+  $('#delIco').removeClass(parts[4]);
+  $('#delIco').addClass("hide");
   saveExp();
+})
+
+$("#expenses-sub").on("blur", function(){
+  var parts = $('#delIco').attr('class').split(' ');
+  $('#delIco').removeClass(parts[3]);
+  $('#delIco').removeClass(parts[4]);
+  $('#delIco').addClass("hide");
 })
 
 // function to edit
@@ -116,20 +135,19 @@ $(document).on('click', '.edit', function () {
   var dayIndex = $(this).attr('class').split(' ')[3].trim();
   var expIndex = $(this).index();
   expIndex = "expIndex" + expIndex;
-    // .closest(".list-group-item")
-    // .index();
-  // tasks[status][index].text = text;
-  // console.log(($(this).children('.name').text()));
+
   var name = ($(this).children('.name').text());
   var desc = ($(this).children('.description').text());
   var amt = ($(this).children('.amount').text());
   $('#name').val(name);
   $('#desc').val(desc);
   $('#amt').val(amt);
+
   $("#delIco").removeClass("hide");
   $("#delIco").addClass(dayIndex);
   $("#delIco").addClass(expIndex);
 })
+
 // function to fetch holidays 
 
 
@@ -151,7 +169,7 @@ var getExp = function () {
     expenses = recallExp;    
   }  
   $.each(expenses, function(day){
-    $.each(expenses[day].expenseList, function(a, elem){
+    $.each(expenses[day].expenseList, function(skip, elem){
       createElem(day, expenses[day].day, elem.name, elem.description, elem.amount, elem.status);
     })
   })
