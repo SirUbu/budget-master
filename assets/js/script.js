@@ -155,7 +155,11 @@ var expenses = [
 ];
 // variable for pay period expenses
 var payPeriodExpenses = [];
-// variables for calculator
+
+  // variable to store months holidays
+var holidays = [];
+  // variables for calculator
+
 var calBalance = "";
 var calExpenses = "";
 var calPaid = "";
@@ -175,12 +179,56 @@ var calRemaining = "";
 
     // function to fetch holidays 
 
+    var getHolidays = function() {
+      // set variables
+      var apiKey = "421967198c7598b1318b049e342e0c87b3b59f3e";
+      var apiYear = moment().format("YYYY");
+      var apiMonth = moment().format("MM");
+      // make request to url
+      fetch(`https://calendarific.com/api/v2/holidays?api_key=${apiKey}&country=US&year=${apiYear}&month=${apiMonth}&type=national`)
+      .then(function(holidayResponse) {
+        // if request was successful
+        if(holidayResponse.ok) {
+          holidayResponse.json().then(function(holidayData) {
+          // pass json data to createCalendar function
+          createCalendar(holidayData);
+          });
+        // if request was unsuccessful
+        } else {
+          // call createCalendar function without holidays
+          createCalendar();
+        }
+      })
+      // if unable to connect to calendarific, still generate calendar
+      .catch(createCalendar);
+    };
+
+
 
     // function to generate and display calendar
-    var createCalendar = function () {
+    var createCalendar = function (data) {
+      // use holidayData to update holidays array
+      holidays = [];
+      var holidayArr = data.response.holidays;
+      for(var h = 0; h < holidayArr.length; h++) {
+        var holidayObj = {
+          date: holidayArr[h].date.iso,
+          name: holidayArr[h].name,
+        };
+        holidays.push(holidayObj);
+      }
       // update month and year with current month and year
       yearEl.textContent = moment().format("YYYY");
       monthEl.textContent = moment().format("MMMM");
+      // clear current content in calendar
+      calDatesEl.textContent = "";
+      // add weekdays to calendar
+      var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      for(var w = 0; w < 7; w ++) {
+        var weekdayEl = document.createElement("div");
+        weekdayEl.textContent = weekdays[w];
+        calDatesEl.appendChild(weekdayEl);
+      }
       // get the first day of the month
       var counter = parseInt(moment().format("D"));
       var firstOfMonth = moment().subtract(counter-1, 'days').format("dddd");
@@ -237,6 +285,15 @@ var calRemaining = "";
         dateHeader.textContent = loopDay.format("Do");
         dateEl.appendChild(dateHeader);
         var dateBody = document.createElement("div"); dateBody.classList = "card-body";
+        // loop through holidays array and create holiday display on calendar
+        for(var y = 0; y < holidays.length; y++) {
+          if(loopDay.format("YYYY-MM-DD") === holidays[y].date) {
+            var holidayEl = document.createElement("p");
+            holidayEl.classList = "purple";
+            holidayEl.textContent = holidays[y].name;
+            dateBody.appendChild(holidayEl);
+          }
+        }
         // add pay frequency
           // if semi-monthly and day of month add
         if(payFrequency.type === "semi-monthly") {
@@ -309,9 +366,6 @@ var calRemaining = "";
           dateEl.classList = "card blue";
           dateHeader.classList = "card-title left-align orange";
         }
-        // -----------------------
-        // add holidays
-        // -----------------------
         dateEl.appendChild(dateBody);
         calDatesEl.appendChild(dateEl);
         // reset loopDay date
@@ -333,7 +387,7 @@ var calRemaining = "";
 
 
   // calendar generation/display
-createCalendar();
-
+getHolidays();
+setInterval(getHolidays, ((60*1000)*60)*6);
 
 // event listeners
