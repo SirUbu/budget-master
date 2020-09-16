@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,22 +9,86 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Budget Master</title>
 </head>
+
 <body>
     <header class="row">
         <h1 class="col s12">Budget Master</h1>
     </header>
-    
+
     <main class="container">
+
+        <div class="input-field col s12 ">
+
+        </div>
         <!-- daily quote for financial advice -->
 
         <!-- left column buttons and expenses -->
-            <!-- button for set pay frequency modal -->
+        <!-- button for set pay frequency modal -->
 
-            <!-- button for set expenses modal -->
+        <!-- Modal Trigger -->
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Set Payment Fequency</a>
 
-            <!-- list of expenses between pay days-->
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <p>Please select your payment frequency</p>
+                <select id="select">
+                    <option value="" disabled selected>Choose your payment </option>
+                    <!-- <option value="weekly">Weekly</option> -->
+                    <option value="bi-weekly">Bi-weekly</option>
+                    <option value="bi-monthly">Bi-monthly</option>
+                </select>
+                <div class="hide" id='bi-weekly'>
+                    <label class="activate">When was your last payday?</label>
+                    <input type="text" id='date' class="datepicker" container="container">
+                </div>
+                <div class="hide" id='bi-monthly'>
+                    <div>
+                        <label class='activate'>please choose first pay day</label>
+                        <input type="text" id='month1' class="datepicker" container="container">
+                    </div>
+                    <div>
+                        <label class='activate'>please choose second payday</label>
+                        <input type="text" id='month2' class="datepicker" container="container">
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+                    <button id="submit">Submit</button>
+                </a>
+            </div>
+        </div>
+        <!-- button for set expenses modal -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <p>Please select your payment frequency</p>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Submit</a>
+            </div>
+        </div>
+
+        <!-- list of expenses between pay days-->
 
         <!-- right column calendar and calculator -->
+
+        <!-- calendar -->
+        <div class="card">
+            <div class="card-title">
+                <div class="row">
+                    <div class="col s2 center-align">
+                        <a id="backBtn" class="btn-floating btn-large waves-effect waves-light black"><i
+                                class="material-icons">arrow_back</i></a>
+                    </div>
+                    <div class="col s8 center-align">
+                        <div id="year">Year</div>
+                        <div id="month">Month</div>
+
             <!-- calendar -->
             <div id="calCard" class="card grey lighten-2">
                 <div class="card-title">
@@ -42,19 +107,35 @@
                 </div>
                 <div id="calBody" class="card-content">
                     <div class="center-align" id="calGrid">
-                    </div>
+
+
+                        <div>Sunday</div>
+                        <div>Monday</div>
+                        <div>Tuesday</div>
+                        <div>Wednesday</div>
+                        <div>Thursday</div>
+                        <div>Friday</div>
+                        <div>Saturday</div>
+
+                    </div>                   
                 </div>
+            </div>            
             </div>
-            <!-- calculator -->
+        </div>
+        <!-- calculator -->
+
 
     </main>
 
     <footer class="row">
         <div class="col s12">&copy; legionCoders</div>
     </footer>
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
+        crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>
