@@ -257,13 +257,14 @@ var resetDelete = function () {
 };
 
 // function to edit
-$(document).on('click', '.edit', function () {
-  var dayIndex = $(this).attr('class').split(' ')[3].trim();
+$(document).on('click', '.edit', function () {  
   var editIndex = $(this).index();
   var expIndex = "expIndex" + editIndex;
   var thisIndex = "thisIndex" + editIndex;
   ($(this).addClass(thisIndex))
-
+  var someIndex = $(this).parent().siblings().children().children().attr("id");
+  someIndex = someIndex.slice(3, someIndex.length -2) -1;
+  var dayIndex = "dayIndex" +someIndex;
   var name = ($(this).children('.name').text());
   var desc = ($(this).children('.description').text());
   var amt = ($(this).children('.amount').text());
@@ -291,39 +292,13 @@ $(".expCol").sortable({
     $(event.target).addClass("dropover-active");
   },
   out: function(event) {
-    $(event.target).removeClass("dropover-active");
+    $(event.target).removeClass("dropover-active");    
   },
   update: function(event) {
-    $(this).children().each(function() {
-      var name = $(this)
-      .find(".name")
-      .text()
-      .trim();
-
-      var amount = $(this)
-      .find(".amount")
-      .text()
-      .trim();
-      console.log(name);
-      console.log(amount);
-  })}
+    
+  }
 
 });
-
-// $(".expense-row").droppable({
-//   accept: ".expItem",
-//   tolerance: "touch",
-//   drop: function(event, ui) {
-//     ui.draggable.remove();
-//     $(".bottom-trash").removeClass("bottom-trash-drag");
-//   },
-//   over: function(event, ui) {
-//     $(".bottom-trash").addClass("bottom-trash-drag");
-//   },
-//   out: function(event, ui) {
-//     $(".bottom-trash").removeClass("bottom-trash-drag");
-//   }
-// });
 
 // function to calculate and display in calculator
 
