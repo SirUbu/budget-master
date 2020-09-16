@@ -21,57 +21,29 @@ $(document).ready(function () {
   $('.datepicker').datepicker({
     container: 'body'
   })
-  // {type: semi-monthly,
-  //  day1: "5th",
-  //  day2: "22nd"}
-  // OR
-  // {type: bi-weekly,
-  // recent: "09/04/2020"}
-
-    // {type: "semi-monthly",
-    //  day1: "5th",
-    //  day2: "22nd"}
-    // OR
-    // {type: "bi-weekly",
-    // recent: "09/04/2020"}
-
-  // variables from set expenses function 
 });
 
 function checkity() {
   var selectValue = $('#select').val();
-
-  
   // if (selectValue === 'weekly') {
   //   console.log('hi im weekly')
   //   return {
-
   //   }
   // }
   if (selectValue === 'bi-weekly') {
-    console.log('bw', {
+    payFrequency = {
       type: 'bi-weekly',
       recent: $('#date').val()
-    });
-    return {
-      type: 'bi-weekly',
-      recent: $('#date').val()
-    }
-  }
-  else {
-    console.log('bm', {
-      type: 'bi-monthly',
+    };
+  }else if (selectValue === 'semi-monthly'){
+    payFrequency = {
+      type: 'semi-monthly',
       Day1: $('#month1').val(),
-      Day2: $('#month2').val(),
-    })
-    return {
-      type: 'bi-monthly',
-      Day1: $('#month1').val(),
-      Day2: $('#month2').val(),
-
-    }
+      Day2: $('#month2').val()
+    };
   }
-}
+  savePayFreq();
+};
 
 function handleselectchange () {
   var selectValue = $('#select').val();
@@ -160,7 +132,14 @@ $(document).ready(function () {
       resetDelete();
     }
   });
-
+  $(document).click(function (e) {
+    if ($(e.target).is('.modal-content, .modal-content *')) {
+      return;
+    }
+    else {
+      getHolidays();
+    }
+  });
 });
 
 // function to fetch holidays 
@@ -192,7 +171,7 @@ $('.modal-day').click(function () {
   var modalDay = ($(this).attr("id").replace("exp", ""));
   $('.modalDay').text("Day: " + modalDay);
   $('#name, #desc, #amt').val("");
-})
+});
 
 // function to fetch and display quote
 
@@ -203,7 +182,7 @@ $('.modal-day').click(function () {
 var createElem = function (index, day, name, description, amount) {
   var expId = "#exp" + day
   $(expId).parent().parent().siblings().append(`<div class="modal-trigger edit expItem dayIndex${index}" href="#expenses-sub"><p class="name">${name}</p><p class="amount">${amount}</p><p class="hide description">${description}</p></div>`)
-}
+};
 
 // function to set expenses
 $('.save').click(function () {
@@ -236,7 +215,7 @@ $('.save').click(function () {
     resetDelete();
   }
   saveExp();   
-})
+});
 
 // function to delete an expense
 $('#delIco').click(function () {
@@ -249,14 +228,14 @@ $('#delIco').click(function () {
 
   resetDelete();
   saveExp();
-})
+});
 
 var resetDelete = function () {
   var parts = $('#delIco').attr('class').split(' ');
   $('#delIco').removeClass(parts[3]);
   $('#delIco').removeClass(parts[4]);
   $('#delIco').addClass("hide");
-}
+};
 
 // function to edit
 $(document).on('click', '.edit', function () {
@@ -276,7 +255,7 @@ $(document).on('click', '.edit', function () {
   $("#delIco").removeClass("hide");
   $("#delIco").addClass(dayIndex);
   $("#delIco").addClass(expIndex);
-})
+});
 
 // draggable opeerations
 
@@ -352,7 +331,7 @@ var createCalendar = function (data) {
   // if bi-weekly payFrequency, set recentPayMoment
   if(payFrequency.type === "bi-weekly") {
     // make recent pay a moment date
-    var formatDate = "MM/DD/YYYY"
+    var formatDate = "MMM Do, YYYY"
     var recentPayMoment = moment(payFrequency.recent, formatDate);
     // while recentPayMoment is not in the current month, add 14 days until in current month
     while(parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
@@ -476,9 +455,12 @@ var createCalendar = function (data) {
 var saveExp = function () {
   localStorage.setItem("expenses", JSON.stringify(expenses));
 };
+var savePayFreq = function() {
+  localStorage.setItem("payFreq", JSON.stringify(payFrequency));
+};
 
 // function to get localStorage
-var getExp = function () {
+var getLocal = function () {
   recallExp = JSON.parse(localStorage.getItem("expenses"));
   // if array exists, replace empty array with it
   if (recallExp) {
@@ -489,12 +471,15 @@ var getExp = function () {
       createElem(day, expenses[day].day, elem.name, elem.description, elem.amount, elem.status);
     })
   })
+  recallPayFreq = JSON.parse(localStorage.getItem("payFreq"));
+  if(recallPayFreq) {
+    payFrequency = recallPayFreq;
+  }
 };
-
 
 // call functions
 // get localStorage
-getExp();
+getLocal();
 
   // calendar generation/display
 getHolidays();
