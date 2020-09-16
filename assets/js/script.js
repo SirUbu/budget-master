@@ -58,9 +58,7 @@ var calRemaining = "";
 // initialize modal functionality
 $(document).ready(function () {
   $('.modal').modal();
-  $(".expCol").sortable({
-    connectWith: $(".expense-row *")
-  });
+  
   $(document).click(function (e) {
     if ($(e.target).is('#expenses-sub, #expenses-sub *, .edit, .edit * .modal-day, .modal-day *, .name, .amount')) {
       return;
@@ -170,10 +168,39 @@ $(document).on('click', '.edit', function () {
   $("#delIco").addClass(expIndex);
 })
 
-// draggable opeerations
+// sortable operations
+$(".expCol").sortable({
+  connectWith: $(".expense-row *"),
+  tolerance: "pointer",
+  helper: "clone",
+  activate: function(event) {
+    $(this).addClass("dropover");
+  },
+  deactivate: function(event) {
+    $(this).removeClass("dropover");
+  },
+  over: function(event) {
+    $(event.target).addClass("dropover-active");
+  },
+  out: function(event) {
+    $(event.target).removeClass("dropover-active");
+  },
+  update: function(event) {
+    $(this).children().each(function() {
+      var name = $(this)
+      .find(".name")
+      .text()
+      .trim();
 
-  
+      var amount = $(this)
+      .find(".amount")
+      .text()
+      .trim();
+      console.log(name);
+      console.log(amount);
+  })}
 
+});
 
 // $(".expense-row").droppable({
 //   accept: ".expItem",
