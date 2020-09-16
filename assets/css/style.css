@@ -18,6 +18,39 @@ a {
     margin: 0;
 }
 
+.container {
+    margin-right:0;
+    margin-left:40px;
+    padding-right:0;
+    padding-left:0;
+}
+
+.edit {
+    font-size: 15px;
+}
+
+i:hover, .edit:hover { cursor: pointer; }
+
+.expense-row {
+    border: dashed lightgray 1px;    
+}
+.expCol {
+    display: inline-flex;
+    height: 75px;
+}
+textarea {
+    background: white;
+    text-align: center;
+}
+.expItem {
+    background: teal;
+    color: yellowgreen;
+    padding: 5px;
+    margin: 2px;
+    border-radius: 7px;
+    line-height: 5px;
+}
+
 .red {
     background-color: aqua;
 }
@@ -40,5 +73,4 @@ a {
 
 .card-body {
     min-height: 60px;
-
 }

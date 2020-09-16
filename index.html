@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Budget Master</title>
@@ -16,18 +18,13 @@
     </header>
 
     <main class="container">
-
-        <div class="input-field col s12 ">
-
-        </div>
         <!-- daily quote for financial advice -->
 
         <!-- left column buttons and expenses -->
         <!-- button for set pay frequency modal -->
-
+        <div class="input-field col s12 "></div>
         <!-- Modal Trigger -->
         <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Set Payment Fequency</a>
-
         <!-- Modal Structure -->
         <div id="modal1" class="modal">
             <div class="modal-content">
@@ -52,9 +49,6 @@
                         <input type="text" id='month2' class="datepicker" container="container">
                     </div>
                 </div>
-
-
-
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">
@@ -62,34 +56,39 @@
                 </a>
             </div>
         </div>
-        <!-- button for set expenses modal -->
         <div id="modal1" class="modal">
             <div class="modal-content">
                 <p>Please select your payment frequency</p>
-
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">Submit</a>
             </div>
         </div>
+              <!-- button for set expenses modal -->
+        <div class="row no-gutters">
+            <div class="col s2">
+                <a class="waves-effect waves-light btn modal-trigger" href="#expenses-modal">Set Expenses</a>
+            </div>
+            <div class="col s10">
 
         <!-- list of expenses between pay days-->
 
         <!-- right column calendar and calculator -->
 
-        <!-- calendar -->
-        <div class="card">
-            <div class="card-title">
-                <div class="row">
-                    <div class="col s2 center-align">
-                        <a id="backBtn" class="btn-floating btn-large waves-effect waves-light black"><i
-                                class="material-icons">arrow_back</i></a>
-                    </div>
-                    <div class="col s8 center-align">
-                        <div id="year">Year</div>
-                        <div id="month">Month</div>
-
             <!-- calendar -->
+                <div class="card">
+                    <div class="card-title">
+                        <div class="row">
+                            <div class="col s2 center-align">
+                                <a id="backBtn" class="btn-floating btn-large waves-effect waves-light black"><i class="material-icons">arrow_back</i></a>
+                            </div>
+                            <div class="col s8 center-align">
+                                <div id="year">Year</div>
+                                <div id="month">Month</div>
+                            </div>
+                            <div class="col s2 center-align">
+                                <a id="forwardBtn" class="btn-floating btn-large waves-effect waves-light black"><i class="material-icons">arrow_forward</i></a>
+                            </div>
             <div id="calCard" class="card grey lighten-2">
                 <div class="card-title">
                     <div class="row">
@@ -100,41 +99,235 @@
                             <div id="year"></div>
                             <div id="month"></div>
                         </div>
-                        <div class="col s2 center-align">
-                            <a id="forwardBtn" class="btn-floating btn-large waves-effect waves-light black"><i class="material-icons">arrow_forward</i></a>
+                    </div>
+                    <div class="card-content">
+                        <div class="center-align" id="calGrid">
                         </div>
                     </div>
                 </div>
-                <div id="calBody" class="card-content">
-                    <div class="center-align" id="calGrid">
-
-
-                        <div>Sunday</div>
-                        <div>Monday</div>
-                        <div>Tuesday</div>
-                        <div>Wednesday</div>
-                        <div>Thursday</div>
-                        <div>Friday</div>
-                        <div>Saturday</div>
-
-                    </div>                   
-                </div>
-            </div>            
             </div>
         </div>
-        <!-- calculator -->
-
-
     </main>
-
+<!-- Expenses Main Modal -->
+<div id="expenses-modal" class="modal">
+    <div class="modal-content center-align">
+        <h4>Expenses</h4>
+        <div class="container">
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>1st <i id = "exp1st" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>2nd <i id = "exp2nd" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>3rd <i id = "exp3rd" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>4th <i id = "exp4th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>5th <i id = "exp5th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>6th <i id = "exp6th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>7th <i id = "exp7th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>8th <i id = "exp8th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>9th <i id = "exp9th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>10th <i id = "exp10th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>11th <i id = "exp11th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>12th <i id = "exp12th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>13th <i id = "exp13th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>14th <i id = "exp14th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>15th <i id = "exp15th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>16th <i id = "exp16th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>17th <i id = "exp17th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>18th <i id = "exp18th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>19th <i id = "exp19th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>20th <i id = "exp20th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>21st <i id = "exp21st"  class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>22nd <i id = "exp22nd" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>23rd <i id = "exp23rd" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>24th <i id = "exp24th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>25th <i id = "exp25th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>26th <i id = "exp26th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>27th <i id = "exp27th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>28th <i id = "exp28th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>29th <i id = "exp29th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>30th <i id = "exp30th" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+            <div class="row expense-row">
+                <div class="col s2">
+                    <h5>31st <i id = "exp31st" class="material-icons modal-trigger modal-day" href="#expenses-sub">add_circle</i></h5>
+                </div>
+                <div class="col s10 expCol"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Expenses Sub Modal -->
+<div id="expenses-sub" class="modal">
+    <div class="modal-content">
+        <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+                <p class="left-align modalDay"></p>
+                <p class="center-align">Name:</p>
+                <textarea id="name"></textarea>
+                <p class="center-align">Description:</p>
+                <textarea id="desc"></textarea>
+                <p class="center-align">Amount:</p>
+                <textarea id="amt"></textarea>
+                <i id="saveIco" class="material-icons modal-close save">save</i>
+                <!-- hide delete unless it's an edit -->
+                <i id="delIco" class="material-icons right modal-close hide">delete</i>
+            </div>          
+        </div>
+    </div>
+</div>
     <footer class="row">
         <div class="col s12">&copy; legionCoders</div>
     </footer>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
-        integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg=="
-        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 
