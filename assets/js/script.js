@@ -242,7 +242,6 @@ $('#delIco').click(function () {
   var expIndex = $(this).attr('class').split(' ')[4].replace('expIndex', '').trim();
   expenses[dayIndex].expenseList.splice(expIndex);
   var thisIndex = ".thisIndex" + expIndex;
-  console.log(thisIndex);
   $(thisIndex).remove();
 
   resetDelete();
@@ -295,9 +294,41 @@ $(".expCol").sortable({
     $(event.target).removeClass("dropover-active");    
   },
   update: function(event) {
-    
-  }
+    var tempArr = []
+    $(this).children().each(function() {    
+      var name = $(this)
+      .find(".name")
+      .text()
+      .trim();
 
+      var amount = $(this)
+      .find(".amount")
+      .text()
+      .trim();
+
+      var description = $(this)
+      .find(".description")
+      .text()
+      .trim();
+
+      // add everything to temp arrays as objects
+      tempArr.push({
+        name: name,
+        description: description,
+        amount: amount,
+        status: false
+      });     
+    });
+    var someIndex = $(this).siblings().children().children().attr("id");
+    someIndex = someIndex.slice(3, someIndex.length -2) -1;
+    // console.log(tempArr)
+    // console.log(someIndex)
+    expenses[someIndex].expenseList=tempArr;
+    saveExp();
+
+    // use logic of edit to get new indexes  
+    // rewrite the arrays
+  }
 });
 
 // function to calculate and display in calculator
