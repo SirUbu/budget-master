@@ -269,6 +269,9 @@ $(document).on('click', '.edit', function () {
   ($(this).addClass(thisIndex))
   var someIndex = $(this).parent().siblings().children().children().attr("id");
   someIndex = someIndex.slice(3, someIndex.length - 2) - 1;
+  var day = $(this).parent().siblings().children().text(); 
+  day = day.slice(0, day.length - 11)
+  $('.modalDay').text("Day: " + day);
   var dayIndex = "dayIndex" + someIndex;
   var name = ($(this).children('.name').text());
   var desc = ($(this).children('.description').text());
