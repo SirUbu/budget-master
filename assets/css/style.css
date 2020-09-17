@@ -5,12 +5,16 @@
     border: solid black 1px;
 }
 
+body {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
 a {
     margin-top: 5px;
 }
 
 
-  select {
+select {
     display: block;
  }  
 
@@ -25,7 +29,8 @@ a {
 i:hover, .edit:hover { cursor: pointer; }
 
 .expense-row {
-    border: dashed lightgray 1px;    
+    border: dashed #d2d5d7 1px;    
+    background-color: #d4e9e8;
 }
 .expCol {
     display: inline-flex;
@@ -45,12 +50,14 @@ textarea {
     text-align: center;
 }
 .expItem {
-    background: teal;
-    color: yellowgreen;
-    padding: 5px;
+    background:	#26a59a;
+    color:  white;
+    ;
+    padding: 3px;
     margin: 2px;
     border-radius: 7px;
-    line-height: 5px;
+    line-height: 6px;
+    width: 111px;
 }
 
 .red {
@@ -58,7 +65,16 @@ textarea {
 }
 
 .datepicker {
-    color:blue;
+    color: #0144ac;
+}
+
+.alert-color {
+    background-color:#cc0000
+}
+
+.main-color {
+    background-color: #0144ac;
+    color: #d2d5d7;
 }
 
 .hide {
@@ -79,6 +95,9 @@ textarea {
 
 h7 {
     font-style: italic;
+}
+h5 {
+    font-size: 21px;
 }
 
 header h1 {
