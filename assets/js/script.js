@@ -121,14 +121,19 @@ var expenses = [
 ];
 
 // variable for pay period expenses
-var payPeriodExpenses = [];
-
+var payPeriodExpenses = 50//[];
 // variables for calculator
-var calBalance = "";
-var calExpenses = "";
-var calPaid = "";
-var calOutstanding = "";
-var calRemaining = "";
+var calBalance = 150;
+var calExpenses = payPeriodExpenses;
+var calPaid = 40;
+var calOutstanding = calExpenses - calPaid;
+var calRemaining = calBalance - calOutstanding;
+
+document.getElementById("balance").innerHTML = calBalance;
+document.getElementById("payPeriodExpenses").innerHTML = calExpenses;
+document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
+document.getElementById("paidExpenses").innerHTML = calPaid;
+document.getElementById("balanceRemaining").innerHTML = calRemaining;
 
 // variable for pay period expenses
 var payPeriodExpenses = [];
