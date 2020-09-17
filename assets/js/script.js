@@ -66,6 +66,7 @@ function checkity() {
   savePayFreq();
 };
 
+
 function handleselectchange () {
   var selectValue = $('#select').val();
   var biweekly = $('#bi-weekly')
@@ -86,42 +87,39 @@ $("#select").on('change', handleselectchange)
 
 var expenses = [
   // {day: "1st", expenseList: [{name: "", description: "",amount: "", status: false}]},
-    {day: "1st", expenseList: [], number: "1"},
-    {day: "2nd", expenseList: [], number: "2"},
-    {day: "3rd", expenseList: [], number: "3"},
-    {day: "4th", expenseList: [], number: "4"},
-    {day: "5th", expenseList: [], number: "5"},
-    {day: "6th", expenseList: [], number: "6"},
-    {day: "7th", expenseList: [], number: "7"},
-    {day: "8th", expenseList: [], number: "8"},
-    {day: "9th", expenseList: [], number: "9"},
-    {day: "10th", expenseList: [], number: "10"},
-    {day: "11th", expenseList: [], number: "11"},
-    {day: "12th", expenseList: [], number: "12"},
-    {day: "13th", expenseList: [], number: "13"},
-    {day: "14th", expenseList: [], number: "14"},
-    {day: "15th", expenseList: [], number: "15"},
-    {day: "16th", expenseList: [], number: "16"},
-    {day: "17th", expenseList: [], number: "17"},
-    {day: "18th", expenseList: [], number: "18"},
-    {day: "19th", expenseList: [], number: "19"},
-    {day: "20th", expenseList: [], number: "20"},
-    {day: "21st", expenseList: [], number: "21"},
-    {day: "22nd", expenseList: [], number: "22"},
-    {day: "23rd", expenseList: [], number: "23"},
-    {day: "24th", expenseList: [], number: "24"},
-    {day: "25th", expenseList: [], number: "25"},
-    {day: "26th", expenseList: [], number: "26"},
-    {day: "27th", expenseList: [], number: "27"},
-    {day: "28th", expenseList: [], number: "28"},
-    {day: "29th", expenseList: [], number: "29"},
-    {day: "30th", expenseList: [], number: "30"},
-    {day: "31st", expenseList: [], number: "31"},
-
+  {day: "1st", expenseList: [], number: "1"},
+  {day: "2nd", expenseList: [], number: "2"},
+  {day: "3rd", expenseList: [], number: "3"},
+  {day: "4th", expenseList: [], number: "4"},
+  {day: "5th", expenseList: [], number: "5"},
+  {day: "6th", expenseList: [], number: "6"},
+  {day: "7th", expenseList: [], number: "7"},
+  {day: "8th", expenseList: [], number: "8"},
+  {day: "9th", expenseList: [], number: "9"},
+  {day: "10th", expenseList: [], number: "10"},
+  {day: "11th", expenseList: [], number: "11"},
+  {day: "12th", expenseList: [], number: "12"},
+  {day: "13th", expenseList: [], number: "13"},
+  {day: "14th", expenseList: [], number: "14"},
+  {day: "15th", expenseList: [], number: "15"},
+  {day: "16th", expenseList: [], number: "16"},
+  {day: "17th", expenseList: [], number: "17"},
+  {day: "18th", expenseList: [], number: "18"},
+  {day: "19th", expenseList: [], number: "19"},
+  {day: "20th", expenseList: [], number: "20"},
+  {day: "21st", expenseList: [], number: "21"},
+  {day: "22nd", expenseList: [], number: "22"},
+  {day: "23rd", expenseList: [], number: "23"},
+  {day: "24th", expenseList: [], number: "24"},
+  {day: "25th", expenseList: [], number: "25"},
+  {day: "26th", expenseList: [], number: "26"},
+  {day: "27th", expenseList: [], number: "27"},
+  {day: "28th", expenseList: [], number: "28"},
+  {day: "29th", expenseList: [], number: "29"},
+  {day: "30th", expenseList: [], number: "30"},
+  {day: "31st", expenseList: [], number: "31"},
+  
 ];
-
-// variable for pay period expenses
-var payPeriodExpenses = [];
 
 // variables for calculator
 var calBalance = "";
@@ -467,7 +465,49 @@ var createCalendar = function (data) {
     // reset loopDay date
     var loopDay = moment().subtract(additional, 'days');
   }
+  payPeriodExpensesList();
 };
+  
+  function payCards (index, newexpense, newamount, newduedate) {
+  console.log('did i fire?')
+  return `<div class="row no-gutters">
+  <div class="card">
+  <div class="card-content">
+  <div class="row">
+  <div class="col s5
+  no-gutters">
+  <strong id='Expense'>Expense ${newexpense}</strong>
+  <div id='Amount'>Amount ${newamount}</div>
+  <br>
+  <u id='DueDate'>Due Date ${newduedate}</u>
+  </div>
+  <div class="col s7 no-gutters">
+  <form action="#">
+  <p>
+  <label>
+  <input type="checkbox" />
+  <span>Paid</span>
+  </label>
+  </p>
+  <p>
+  <label>
+  <input type="checkbox" />
+  <span>Outstanding</span>
+  </label>
+  </p>
+  </form>
+  </div>
+  </div>
+  </div>
+  </div>`
+  }
+function payPeriodExpensesList () {
+  console.log('olo?');
+  for (let index = 0; index < payPeriodExpenses.length; index++) {
+    const newvalue=  payPeriodExpenses[index].amount
+    $('#expense-list-container').append(payCards(index, newvalue))      
+  }
+}
 
 // function to calculate and display in calculator
 
@@ -507,3 +547,5 @@ getHolidays();
 setInterval(getHolidays, ((60*1000)*60)*6);
 
 // event listeners
+
+

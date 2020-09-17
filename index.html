@@ -73,27 +73,70 @@
             </div>
         </div>
         <!-- list of expenses between pay days-->
-
-        <!-- right column calendar and calculator -->
-
-        <!-- calendar -->
-        <div class="col s10 no-gutters">
-            <div id="calCard" class="card grey lighten-2">
-                <div class="card-title">
-                    <div class="row">
-                        <div class="col s2 center-align">
-                            <a id="backBtn" class="btn-floating btn-large waves-effect waves-light black"><i class="material-icons">arrow_back</i></a>
-                        </div>
-                        <div class="col s8 center-align">
-                            <div id="year"></div>
-                            <div id="month"></div>
-                        </div>
-                        <div class="col s2 center-align">
-                            <a id="forwardBtn" class="btn-floating btn-large waves-effect waves-light black"><i class="material-icons">arrow_forward</i></a>
-                        </div>
+        <div class="row no-gutters">
+            <div class="col s3 no-gutters">
+                <div id="expense-list-container">
+                    <div class="card-title">
+                        Expences Between Pay Days
+                    </div>
+                </div>
+                <!-- <div class="card">
+                    <div class="card-title">
+                        Expences Between Pay Days
                     </div>
                     <div class="card-content">
-                        <div class="center-align" id="calGrid">
+                        <div class="row">
+                            <div class="col s5
+                     no-gutters">
+                                <strong id='Expense'>Expense $100</strong>
+                                <br>
+                                <u id='DueDate'>Due Date 9/16</u>
+                            </div>
+                            <div class="col s7 no-gutters">
+                                <form action="#">
+                                    <p>
+                                        <label>
+                                            <input type="checkbox" />
+                                            <span>Paid</span>
+                                        </label>
+                                    </p>
+
+                                    <p>
+                                        <label>
+                                            <input type="checkbox" />
+                                            <span>Outstanding</span>
+                                        </label>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <!-- right column calendar and calculator -->
+
+            <!-- calendar -->
+            <div class="col s9 no-gutters">
+                <div id="calCard" class="card grey lighten-2">
+                    <div class="card-title">
+                        <div class="row">
+                            <div class="col s2 center-align">
+                                <a id="backBtn" class="btn-floating btn-large waves-effect waves-light black"><i
+                                        class="material-icons">arrow_back</i></a>
+                            </div>
+                            <div class="col s8 center-align">
+                                <div id="year"></div>
+                                <div id="month"></div>
+                            </div>
+                            <div class="col s2 center-align">
+                                <a id="forwardBtn" class="btn-floating btn-large waves-effect waves-light black"><i
+                                        class="material-icons">arrow_forward</i></a>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="center-align" id="calGrid">
+                            </div>
                         </div>
                     </div>
                 </div>
