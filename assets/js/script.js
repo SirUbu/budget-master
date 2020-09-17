@@ -2,21 +2,21 @@
 
 //app.js
 const url = "https://api.quotable.io/random";
-function generateQuote(){
-   fetch(url)
-  .then(function(data) {
-         return data.json();
+function generateQuote() {
+  fetch(url)
+    .then(function (data) {
+      return data.json();
     })
-    .then(function(data){    
-    document.getElementById("quote").innerHTML = data.content;
-    document.getElementById("author").innerHTML = "- " + data.author;
-   })
- .catch(function(err) {
-    console.log(err); 
+    .then(function (data) {
+      document.getElementById("quote").innerHTML = data.content;
+      document.getElementById("author").innerHTML = "- " + data.author;
+    })
+    .catch(function (err) {
+      console.log(err);
     });
- }
- 
-setInterval(generateQuote() ,8.64e+7);
+}
+
+setInterval(generateQuote(), 8.64e+7);
 
 
 // get DOM elements
@@ -56,7 +56,7 @@ function checkity() {
       type: 'bi-weekly',
       recent: $('#date').val()
     };
-  }else if (selectValue === 'semi-monthly'){
+  } else if (selectValue === 'semi-monthly') {
     payFrequency = {
       type: 'semi-monthly',
       Day1: $('#month1').val(),
@@ -66,7 +66,7 @@ function checkity() {
   savePayFreq();
 };
 
-function handleselectchange () {
+function handleselectchange() {
   var selectValue = $('#select').val();
   var biweekly = $('#bi-weekly')
   var bimonthly = $('#bi-monthly')
@@ -76,7 +76,7 @@ function handleselectchange () {
   }
   else if (selectValue === 'bi-monthly') {
     bimonthly.removeClass('hide')
-    biweekly.addClass('hide')    
+    biweekly.addClass('hide')
   }
 }
 
@@ -86,37 +86,37 @@ $("#select").on('change', handleselectchange)
 
 var expenses = [
   // {day: "1st", expenseList: [{name: "", description: "",amount: "", status: false}]},
-    {day: "1st", expenseList: [], number: "1"},
-    {day: "2nd", expenseList: [], number: "2"},
-    {day: "3rd", expenseList: [], number: "3"},
-    {day: "4th", expenseList: [], number: "4"},
-    {day: "5th", expenseList: [], number: "5"},
-    {day: "6th", expenseList: [], number: "6"},
-    {day: "7th", expenseList: [], number: "7"},
-    {day: "8th", expenseList: [], number: "8"},
-    {day: "9th", expenseList: [], number: "9"},
-    {day: "10th", expenseList: [], number: "10"},
-    {day: "11th", expenseList: [], number: "11"},
-    {day: "12th", expenseList: [], number: "12"},
-    {day: "13th", expenseList: [], number: "13"},
-    {day: "14th", expenseList: [], number: "14"},
-    {day: "15th", expenseList: [], number: "15"},
-    {day: "16th", expenseList: [], number: "16"},
-    {day: "17th", expenseList: [], number: "17"},
-    {day: "18th", expenseList: [], number: "18"},
-    {day: "19th", expenseList: [], number: "19"},
-    {day: "20th", expenseList: [], number: "20"},
-    {day: "21st", expenseList: [], number: "21"},
-    {day: "22nd", expenseList: [], number: "22"},
-    {day: "23rd", expenseList: [], number: "23"},
-    {day: "24th", expenseList: [], number: "24"},
-    {day: "25th", expenseList: [], number: "25"},
-    {day: "26th", expenseList: [], number: "26"},
-    {day: "27th", expenseList: [], number: "27"},
-    {day: "28th", expenseList: [], number: "28"},
-    {day: "29th", expenseList: [], number: "29"},
-    {day: "30th", expenseList: [], number: "30"},
-    {day: "31st", expenseList: [], number: "31"},
+  { day: "1st", expenseList: [], number: "1" },
+  { day: "2nd", expenseList: [], number: "2" },
+  { day: "3rd", expenseList: [], number: "3" },
+  { day: "4th", expenseList: [], number: "4" },
+  { day: "5th", expenseList: [], number: "5" },
+  { day: "6th", expenseList: [], number: "6" },
+  { day: "7th", expenseList: [], number: "7" },
+  { day: "8th", expenseList: [], number: "8" },
+  { day: "9th", expenseList: [], number: "9" },
+  { day: "10th", expenseList: [], number: "10" },
+  { day: "11th", expenseList: [], number: "11" },
+  { day: "12th", expenseList: [], number: "12" },
+  { day: "13th", expenseList: [], number: "13" },
+  { day: "14th", expenseList: [], number: "14" },
+  { day: "15th", expenseList: [], number: "15" },
+  { day: "16th", expenseList: [], number: "16" },
+  { day: "17th", expenseList: [], number: "17" },
+  { day: "18th", expenseList: [], number: "18" },
+  { day: "19th", expenseList: [], number: "19" },
+  { day: "20th", expenseList: [], number: "20" },
+  { day: "21st", expenseList: [], number: "21" },
+  { day: "22nd", expenseList: [], number: "22" },
+  { day: "23rd", expenseList: [], number: "23" },
+  { day: "24th", expenseList: [], number: "24" },
+  { day: "25th", expenseList: [], number: "25" },
+  { day: "26th", expenseList: [], number: "26" },
+  { day: "27th", expenseList: [], number: "27" },
+  { day: "28th", expenseList: [], number: "28" },
+  { day: "29th", expenseList: [], number: "29" },
+  { day: "30th", expenseList: [], number: "30" },
+  { day: "31st", expenseList: [], number: "31" },
 
 ];
 
@@ -133,18 +133,16 @@ var calRemaining = "";
 // variable for pay period expenses
 var payPeriodExpenses = [];
 
-  // variable to store months holidays
+// variable to store months holidays
 var holidays = [];
-  // variables for calculator
+// variables for calculator
 
 // functions
 
 // initialize modal functionality
 $(document).ready(function () {
   $('.modal').modal();
-  $(".expCol").sortable({
-    connectWith: $(".expense-row *")
-  });
+
   $(document).click(function (e) {
     if ($(e.target).is('#expenses-sub, #expenses-sub *, .edit, .edit * .modal-day, .modal-day *, .name, .amount')) {
       return;
@@ -164,28 +162,28 @@ $(document).ready(function () {
 });
 
 // function to fetch holidays 
-var getHolidays = function() {
+var getHolidays = function () {
   // set variables
   var apiKey = "421967198c7598b1318b049e342e0c87b3b59f3e";
   var apiYear = moment().format("YYYY");
   var apiMonth = moment().format("MM");
   // make request to url
   fetch(`https://calendarific.com/api/v2/holidays?api_key=${apiKey}&country=US&year=${apiYear}&month=${apiMonth}&type=national`)
-  .then(function(holidayResponse) {
-    // if request was successful
-    if(holidayResponse.ok) {
-      holidayResponse.json().then(function(holidayData) {
-      // pass json data to createCalendar function
-      createCalendar(holidayData);
-      });
-    // if request was unsuccessful
-    } else {
-      // call createCalendar function without holidays
-      createCalendar();
-    }
-  })
-  // if unable to connect to calendarific, still generate calendar
-  .catch(createCalendar);
+    .then(function (holidayResponse) {
+      // if request was successful
+      if (holidayResponse.ok) {
+        holidayResponse.json().then(function (holidayData) {
+          // pass json data to createCalendar function
+          createCalendar(holidayData);
+        });
+        // if request was unsuccessful
+      } else {
+        // call createCalendar function without holidays
+        createCalendar();
+      }
+    })
+    // if unable to connect to calendarific, still generate calendar
+    .catch(createCalendar);
 };
 
 $('.modal-day').click(function () {
@@ -213,6 +211,16 @@ $('.save').click(function () {
   var expName = $('#name').val().trim();
   var expDesc = $('#desc').val().trim();
   var expAmt = $('#amt').val().trim();
+  if (expName == "" || expDesc == "" || expAmt == "") {
+    alert("Please enter a value");
+    return;
+  }   
+  var res = expAmt.match(/[0-9]/g);
+  if (res == null) {
+    alert("Please enter a number")
+    return;
+  }
+
 
   // needs to replace index of array instead
   // if edit, retrieve index and don't push
@@ -235,7 +243,7 @@ $('.save').click(function () {
     $(thisIndex)[0].innerHTML = `<p class="name">${expName}</p><p class="amount">${expAmt}</p><p class="hide description">${expDesc}</p>`
     resetDelete();
   }
-  saveExp();   
+  saveExp();
 });
 
 // function to delete an expense
@@ -244,7 +252,6 @@ $('#delIco').click(function () {
   var expIndex = $(this).attr('class').split(' ')[4].replace('expIndex', '').trim();
   expenses[dayIndex].expenseList.splice(expIndex);
   var thisIndex = ".thisIndex" + expIndex;
-  console.log(thisIndex);
   $(thisIndex).remove();
 
   resetDelete();
@@ -260,12 +267,13 @@ var resetDelete = function () {
 
 // function to edit
 $(document).on('click', '.edit', function () {
-  var dayIndex = $(this).attr('class').split(' ')[3].trim();
   var editIndex = $(this).index();
   var expIndex = "expIndex" + editIndex;
   var thisIndex = "thisIndex" + editIndex;
   ($(this).addClass(thisIndex))
-
+  var someIndex = $(this).parent().siblings().children().children().attr("id");
+  someIndex = someIndex.slice(3, someIndex.length - 2) - 1;
+  var dayIndex = "dayIndex" + someIndex;
   var name = ($(this).children('.name').text());
   var desc = ($(this).children('.description').text());
   var amt = ($(this).children('.amount').text());
@@ -278,25 +286,60 @@ $(document).on('click', '.edit', function () {
   $("#delIco").addClass(expIndex);
 });
 
-// draggable opeerations
+// sortable operations
+$(".expCol").sortable({
+  connectWith: $(".expense-row *"),
+  tolerance: "pointer",
+  helper: "clone",
+  activate: function (event) {
+    $(this).addClass("dropover");
+  },
+  deactivate: function (event) {
+    $(this).removeClass("dropover");
+  },
+  over: function (event) {
+    $(event.target).addClass("dropover-active");
+  },
+  out: function (event) {
+    $(event.target).removeClass("dropover-active");
+  },
+  update: function (event) {
+    var tempArr = []
+    $(this).children().each(function () {
+      var name = $(this)
+        .find(".name")
+        .text()
+        .trim();
 
-  
+      var amount = $(this)
+        .find(".amount")
+        .text()
+        .trim();
 
+      var description = $(this)
+        .find(".description")
+        .text()
+        .trim();
 
-// $(".expense-row").droppable({
-//   accept: ".expItem",
-//   tolerance: "touch",
-//   drop: function(event, ui) {
-//     ui.draggable.remove();
-//     $(".bottom-trash").removeClass("bottom-trash-drag");
-//   },
-//   over: function(event, ui) {
-//     $(".bottom-trash").addClass("bottom-trash-drag");
-//   },
-//   out: function(event, ui) {
-//     $(".bottom-trash").removeClass("bottom-trash-drag");
-//   }
-// });
+      // add everything to temp arrays as objects
+      tempArr.push({
+        name: name,
+        description: description,
+        amount: amount,
+        status: false
+      });
+    });
+    var someIndex = $(this).siblings().children().children().attr("id");
+    someIndex = someIndex.slice(3, someIndex.length - 2) - 1;
+    // console.log(tempArr)
+    // console.log(someIndex)
+    expenses[someIndex].expenseList = tempArr;
+    saveExp();
+
+    // use logic of edit to get new indexes  
+    // rewrite the arrays
+  }
+});
 
 // function to calculate and display in calculator
 
@@ -306,7 +349,7 @@ var createCalendar = function (data) {
   // use holidayData to update holidays array
   holidays = [];
   var holidayArr = data.response.holidays;
-  for(var h = 0; h < holidayArr.length; h++) {
+  for (var h = 0; h < holidayArr.length; h++) {
     var holidayObj = {
       date: holidayArr[h].date.iso,
       name: holidayArr[h].name,
@@ -320,27 +363,27 @@ var createCalendar = function (data) {
   calDatesEl.textContent = "";
   // add weekdays to calendar
   var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  for(var w = 0; w < 7; w ++) {
+  for (var w = 0; w < 7; w++) {
     var weekdayEl = document.createElement("div");
     weekdayEl.textContent = weekdays[w];
     calDatesEl.appendChild(weekdayEl);
   }
   // get the first day of the month
   var counter = parseInt(moment().format("D"));
-  var firstOfMonth = moment().subtract(counter-1, 'days').format("dddd");
+  var firstOfMonth = moment().subtract(counter - 1, 'days').format("dddd");
   // if firstOfMonth not sunday, get number of days needed to get to sunday
   var additional = counter + 0;
-  if(firstOfMonth === "Saturday") {
+  if (firstOfMonth === "Saturday") {
     additional = counter - 1 + 6;
-  } else if(firstOfMonth === "Friday") {
+  } else if (firstOfMonth === "Friday") {
     additional = counter - 1 + 5;
-  } else if(firstOfMonth === "Thursday") {
-    additional = counter- 1 + 4;
-  } else if(firstOfMonth === "Wednesday") {
+  } else if (firstOfMonth === "Thursday") {
+    additional = counter - 1 + 4;
+  } else if (firstOfMonth === "Wednesday") {
     additional = counter - 1 + 3;
-  } else if(firstOfMonth === "Tuesday") {
+  } else if (firstOfMonth === "Tuesday") {
     additional = counter - 1 + 2;
-  } else if(firstOfMonth === "Monday") {
+  } else if (firstOfMonth === "Monday") {
     additional = counter - 1 + 1;
   }
   // get the day that the calendar starts on
@@ -350,27 +393,27 @@ var createCalendar = function (data) {
   // take current day and get end of previous month
   var previousMonthEnd = moment().subtract(counter, 'days');
   // if bi-weekly payFrequency, set recentPayMoment
-  if(payFrequency.type === "bi-weekly") {
+  if (payFrequency.type === "bi-weekly") {
     // make recent pay a moment date
     var formatDate = "MMM Do, YYYY"
     var recentPayMoment = moment(payFrequency.recent, formatDate);
     // while recentPayMoment is not in the current month, add 14 days until in current month
-    while(parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
+    while (parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
       recentPayMoment.add(14, 'days');
     };
     var nextPayDate = recentPayMoment.add(14, 'days');
     recentPayMoment = moment(payFrequency.recent, formatDate);
-    while(parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
+    while (parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
       recentPayMoment.add(14, 'days');
     };
     var lastPayDate = recentPayMoment.add(28, 'days');
     recentPayMoment = moment(payFrequency.recent, formatDate);
-    while(parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
+    while (parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
       recentPayMoment.add(14, 'days');
     };
   }
   // iterate to create month
-  for(var i = 0; i < 35; i++) {
+  for (var i = 0; i < 35; i++) {
     var dateAtt = loopDay.add(i, 'days').format("MM/DD/YYYY");
     var dateEl = document.createElement("div");
     dateEl.classList = "card";
@@ -382,8 +425,8 @@ var createCalendar = function (data) {
     dateEl.appendChild(dateHeader);
     var dateBody = document.createElement("div"); dateBody.classList = "card-body";
     // loop through holidays array and create holiday display on calendar
-    for(var y = 0; y < holidays.length; y++) {
-      if(loopDay.format("YYYY-MM-DD") === holidays[y].date) {
+    for (var y = 0; y < holidays.length; y++) {
+      if (loopDay.format("YYYY-MM-DD") === holidays[y].date) {
         var holidayEl = document.createElement("p");
         holidayEl.classList = "purple";
         holidayEl.textContent = holidays[y].name;
@@ -391,41 +434,41 @@ var createCalendar = function (data) {
       }
     }
     // add pay frequency
-      // if semi-monthly and day of month add
-    if(payFrequency.type === "semi-monthly") {
-      if(loopDay.format("Do") === payFrequency.day1 || loopDay.format("Do") === payFrequency.day2) {
+    // if semi-monthly and day of month add
+    if (payFrequency.type === "semi-monthly") {
+      if (loopDay.format("Do") === payFrequency.day1 || loopDay.format("Do") === payFrequency.day2) {
         var payEl = document.createElement("p");
         payEl.classList = "green";
         payEl.textContent = "Pay Day";
         dateBody.appendChild(payEl);
       }
       // highlight if date is in pay period
-      if(parseInt(loopDay.format("Do")) >= parseInt(payFrequency.day1) && parseInt(loopDay.format("Do")) < parseInt(payFrequency.day2)) {
+      if (parseInt(loopDay.format("Do")) >= parseInt(payFrequency.day1) && parseInt(loopDay.format("Do")) < parseInt(payFrequency.day2)) {
         dateEl.classList = "card grey";
         // push expenses to payPeriodExpenses
-        for(var c = 0; c < expenses.length; c ++) {
-          if(expenses[c].day === loopDay.format("Do")) {
-            for(var p = 0; p < expenses[c].expenseList.length; p++) {
+        for (var c = 0; c < expenses.length; c++) {
+          if (expenses[c].day === loopDay.format("Do")) {
+            for (var p = 0; p < expenses[c].expenseList.length; p++) {
               payPeriodExpenses.push(expenses[c].expenseList[p]);
             }
           }
         }
       }
       // if bi-weekly and day of month add
-    } else if(payFrequency.type === "bi-weekly") {
-      if(loopDay.format("MM/DD") === recentPayMoment.format("MM/DD") || loopDay.format("MM/DD") === nextPayDate.format("MM/DD") || loopDay.format("MM/DD") === lastPayDate.format("MM/DD")) {
+    } else if (payFrequency.type === "bi-weekly") {
+      if (loopDay.format("MM/DD") === recentPayMoment.format("MM/DD") || loopDay.format("MM/DD") === nextPayDate.format("MM/DD") || loopDay.format("MM/DD") === lastPayDate.format("MM/DD")) {
         var payEl = document.createElement("p");
         payEl.classList = "green";
         payEl.textContent = "Pay Day";
         dateBody.appendChild(payEl);
       }
       // highlight if date is in pay period
-      if(parseInt(loopDay.format("Do")) >= parseInt(recentPayMoment.format("Do")) && parseInt(loopDay.format("Do")) < parseInt(nextPayDate.format("Do")) || parseInt(loopDay.format("Do")) >= parseInt(nextPayDate.format("Do")) && parseInt(loopDay.format("Do")) < parseInt(lastPayDate.format("Do")) ) {
+      if (parseInt(loopDay.format("Do")) >= parseInt(recentPayMoment.format("Do")) && parseInt(loopDay.format("Do")) < parseInt(nextPayDate.format("Do")) || parseInt(loopDay.format("Do")) >= parseInt(nextPayDate.format("Do")) && parseInt(loopDay.format("Do")) < parseInt(lastPayDate.format("Do"))) {
         dateEl.classList = "card grey";
         // push expenses to payPeriodExpenses
-        for(var c = 0; c < expenses.length; c ++) {
-          if(expenses[c].day === loopDay.format("Do")) {
-            for(var p = 0; p < expenses[c].expenseList.length; p++) {
+        for (var c = 0; c < expenses.length; c++) {
+          if (expenses[c].day === loopDay.format("Do")) {
+            for (var p = 0; p < expenses[c].expenseList.length; p++) {
               payPeriodExpenses.push(expenses[c].expenseList[p]);
             }
           }
@@ -433,9 +476,9 @@ var createCalendar = function (data) {
       }
     }
     // add expenses based on day due
-    for(var d = 0; d < expenses.length; d++) {
-      if(loopDay.format("Do") === expenses[d].day) {
-        for(var e = 0; e < expenses[d].expenseList.length; e++) {
+    for (var d = 0; d < expenses.length; d++) {
+      if (loopDay.format("Do") === expenses[d].day) {
+        for (var e = 0; e < expenses[d].expenseList.length; e++) {
           var expenseEl = document.createElement("p");
           expenseEl.textContent = expenses[d].expenseList[e].name;
           expenseEl.classList = "red";
@@ -446,10 +489,10 @@ var createCalendar = function (data) {
     // if due on day not in month, add to last day of month
     var endOfMonthInt = parseInt(endOfMonth.format("D"));
     var dateDiff = 31 - endOfMonthInt;
-    if(endOfMonthInt < 31) {
+    if (endOfMonthInt < 31) {
       // use last day of month to add expenses of dates to 31st
-      if(loopDay.format("MM/DD") === endOfMonth.format("MM/DD")) {
-        for(var f = 0; f < expenses[endOfMonthInt - 1 + dateDiff].expenseList.length; f++) {
+      if (loopDay.format("MM/DD") === endOfMonth.format("MM/DD")) {
+        for (var f = 0; f < expenses[endOfMonthInt - 1 + dateDiff].expenseList.length; f++) {
           var expenseEl = document.createElement("p");
           expenseEl.textContent = expenses[endOfMonthInt - 1 + dateDiff].expenseList[f].name;
           expenseEl.classList = "red";
@@ -458,7 +501,7 @@ var createCalendar = function (data) {
       }
     }
     // highlight current day of month
-    if(loopDay.format("MM/DD/YYYY") === todayDate) {
+    if (loopDay.format("MM/DD/YYYY") === todayDate) {
       dateEl.classList = "card blue";
       dateHeader.classList = "card-title left-align orange";
     }
@@ -476,7 +519,7 @@ var createCalendar = function (data) {
 var saveExp = function () {
   localStorage.setItem("expenses", JSON.stringify(expenses));
 };
-var savePayFreq = function() {
+var savePayFreq = function () {
   localStorage.setItem("payFreq", JSON.stringify(payFrequency));
 };
 
@@ -493,7 +536,7 @@ var getLocal = function () {
     })
   })
   recallPayFreq = JSON.parse(localStorage.getItem("payFreq"));
-  if(recallPayFreq) {
+  if (recallPayFreq) {
     payFrequency = recallPayFreq;
   }
 };
@@ -502,8 +545,8 @@ var getLocal = function () {
 // get localStorage
 getLocal();
 
-  // calendar generation/display
+// calendar generation/display
 getHolidays();
-setInterval(getHolidays, ((60*1000)*60)*6);
+setInterval(getHolidays, ((60 * 1000) * 60) * 6);
 
 // event listeners

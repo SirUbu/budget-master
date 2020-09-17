@@ -38,6 +38,15 @@ i:hover, .edit:hover { cursor: pointer; }
     display: inline-flex;
     height: 75px;
 }
+
+.dropover {
+    background-color: rgba(0,0,0,0.3);
+  }
+
+.dropover-active {
+    background-color: rgba(0,0,0,0.7);
+  } 
+  
 textarea {
     background: white;
     text-align: center;
@@ -75,3 +84,6 @@ textarea {
     min-height: 60px;
 }
 
+h7 {
+    font-style: italic;
+}
