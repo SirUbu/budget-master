@@ -121,7 +121,7 @@ var expenses = [
 ];
 
 // variable for pay period expenses
-var payPeriodExpenses = 50//[];
+var payPeriodExpenses =[];
 // variables for calculator
 var calBalance = 150;
 var calExpenses = payPeriodExpenses;
