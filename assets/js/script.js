@@ -69,13 +69,13 @@ function checkity() {
 function handleselectchange() {
   var selectValue = $('#select').val();
   var biweekly = $('#bi-weekly')
-  var bimonthly = $('#bi-monthly')
+  var semimonthly = $('#semi-monthly')
   if (selectValue === 'bi-weekly') {
     biweekly.removeClass('hide')
-    bimonthly.addClass('hide')
+    semimonthly.addClass('hide')
   }
-  else if (selectValue === 'bi-monthly') {
-    bimonthly.removeClass('hide')
+  else if (selectValue === 'semi-monthly') {
+    semimonthly.removeClass('hide')
     biweekly.addClass('hide')
   }
 }
@@ -130,12 +130,8 @@ var calPaid = "";
 var calOutstanding = "";
 var calRemaining = "";
 
-// variable for pay period expenses
-var payPeriodExpenses = [];
-
 // variable to store months holidays
 var holidays = [];
-// variables for calculator
 
 // functions
 
@@ -356,6 +352,8 @@ var createCalendar = function (data) {
     };
     holidays.push(holidayObj);
   }
+  // clear payPeriodExpenses
+  payPeriodExpenses = [];
   // update month and year with current month and year
   yearEl.textContent = moment().format("YYYY");
   monthEl.textContent = moment().format("MMMM");
@@ -411,6 +409,11 @@ var createCalendar = function (data) {
     while (parseInt(recentPayMoment.format("MM")) !== parseInt(moment().format("MM"))) {
       recentPayMoment.add(14, 'days');
     };
+  // if semi-monthly payFrequency, convert days to moments
+  } else if (payFrequency.type === "semi-monthly") {
+    var formatDate = "MMM Do, YYYY";
+    var payDate1 = moment(payFrequency.Day1, formatDate);
+    var payDate2 = moment(payFrequency.Day2, formatDate);
   }
   // iterate to create month
   for (var i = 0; i < 35; i++) {
@@ -436,14 +439,14 @@ var createCalendar = function (data) {
     // add pay frequency
     // if semi-monthly and day of month add
     if (payFrequency.type === "semi-monthly") {
-      if (loopDay.format("Do") === payFrequency.day1 || loopDay.format("Do") === payFrequency.day2) {
+      if (loopDay.format("Do") === payDate1.format("Do") || loopDay.format("Do") === payDate2.format("Do")) {
         var payEl = document.createElement("p");
         payEl.classList = "green";
         payEl.textContent = "Pay Day";
         dateBody.appendChild(payEl);
       }
       // highlight if date is in pay period
-      if (parseInt(loopDay.format("Do")) >= parseInt(payFrequency.day1) && parseInt(loopDay.format("Do")) < parseInt(payFrequency.day2)) {
+      if ((parseInt(moment().format("DD")) >= parseInt(payDate1.format("DD")) && parseInt(moment().format("DD")) < parseInt(payDate2.format("DD")) && parseInt(loopDay.format("DD")) >= parseInt(payDate1.format("DD")) && parseInt(loopDay.format("DD")) < parseInt(payDate2.format("DD"))) || (parseInt(moment().format("DD")) >= parseInt(payDate2.format("DD")) && parseInt(moment().format("DD")) < parseInt(payDate1.format("DD")) && parseInt(loopDay.format("DD")) >= parseInt(payDate2.format("DD")) && parseInt(loopDay.format("DD")) < parseInt(payDate1.format("DD")))) {
         dateEl.classList = "card grey";
         // push expenses to payPeriodExpenses
         for (var c = 0; c < expenses.length; c++) {
@@ -463,7 +466,7 @@ var createCalendar = function (data) {
         dateBody.appendChild(payEl);
       }
       // highlight if date is in pay period
-      if (parseInt(loopDay.format("Do")) >= parseInt(recentPayMoment.format("Do")) && parseInt(loopDay.format("Do")) < parseInt(nextPayDate.format("Do")) || parseInt(loopDay.format("Do")) >= parseInt(nextPayDate.format("Do")) && parseInt(loopDay.format("Do")) < parseInt(lastPayDate.format("Do"))) {
+      if (moment().format("MM/DD") >= recentPayMoment.format("MM/DD") && moment().format("MM/DD") < nextPayDate.format("MM/DD") && loopDay.format("MM/DD") >= recentPayMoment.format("MM/DD") && loopDay.format("MM/DD") < nextPayDate.format("MM/DD") || moment().format("MM/DD") >= nextPayDate.format("MM/DD") && moment().format("MM/DD") < lastPayDate.format("MM/DD") && loopDay.format("MM/DD") >= nextPayDate.format("MM/DD") && loopDay.format("MM/DD") < lastPayDate.format("MM/DD")) {
         dateEl.classList = "card grey";
         // push expenses to payPeriodExpenses
         for (var c = 0; c < expenses.length; c++) {
@@ -547,6 +550,6 @@ getLocal();
 
 // calendar generation/display
 getHolidays();
-setInterval(getHolidays, ((60 * 1000) * 60) * 6);
+setInterval(getHolidays(), ((60 * 1000) * 60) * 6);
 
 // event listeners
