@@ -329,14 +329,15 @@
     <div id="expenses-sub" class="modal">
         <div class="modal-content">
             <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
+                <div class="card-content white-text">                    
                     <p class="left-align modalDay"></p>
+                    <h7>All fields require an entry. Amount requires number.</h7>
                     <p class="center-align">Name:</p>
                     <textarea id="name"></textarea>
                     <p class="center-align">Description:</p>
                     <textarea id="desc"></textarea>
                     <p class="center-align">Amount:</p>
-                    <textarea id="amt"></textarea>
+                    <textarea id="amt" placeholder="$"></textarea>
                     <i id="saveIco" class="material-icons modal-close save">save</i>
                     <!-- hide delete unless it's an edit -->
                     <i id="delIco" class="material-icons right modal-close hide">delete</i>
