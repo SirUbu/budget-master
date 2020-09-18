@@ -440,7 +440,7 @@ var createCalendar = function (data) {
     dateEl.setAttribute("id", "dateCard");
     dateEl.setAttribute("date", dateAtt);
     var dateHeader = document.createElement("div");
-    dateHeader.classList = "card-title left-align blue-grey darken-2 white-text";
+    dateHeader.classList = "card-title center-align blue-grey darken-2 white-text";
     dateHeader.textContent = loopDay.format("Do");
     dateEl.appendChild(dateHeader);
     var dateBody = document.createElement("div"); dateBody.classList = "card-body";
@@ -501,7 +501,7 @@ var createCalendar = function (data) {
         for (var e = 0; e < expenses[d].expenseList.length; e++) {
           var expenseEl = document.createElement("p");
           expenseEl.textContent = expenses[d].expenseList[e].name;
-          expenseEl.classList = "red";
+          expenseEl.classList = "alert-color";
           dateBody.appendChild(expenseEl);
         }
       }
@@ -515,15 +515,15 @@ var createCalendar = function (data) {
         for (var f = 0; f < expenses[endOfMonthInt - 1 + dateDiff].expenseList.length; f++) {
           var expenseEl = document.createElement("p");
           expenseEl.textContent = expenses[endOfMonthInt - 1 + dateDiff].expenseList[f].name;
-          expenseEl.classList = "red";
+          expenseEl.classList = "alert-color";
           dateBody.appendChild(expenseEl);
         }
       }
     }
     // highlight current day of month
     if (loopDay.format("MM/DD/YYYY") === todayDate) {
-      dateEl.classList = "card blue";
-      dateHeader.classList = "card-title left-align orange";
+      dateEl.classList = "card blue darken-1";
+      dateHeader.classList = "card-title center-align orange darken-2";
     }
     dateEl.appendChild(dateBody);
     calDatesEl.appendChild(dateEl);
