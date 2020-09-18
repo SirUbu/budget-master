@@ -25,7 +25,7 @@ var cardContentEl = document.querySelector("#calBody");
 var yearEl = document.querySelector("#year");
 var monthEl = document.querySelector("#month");
 
-
+var calcExpEl = document.getElementById("totalPayPeriodExpenses")
 // set global variable 
 var todayDate = moment().format("MM/DD/YYYY");
 //variables from set pay frequency function
@@ -121,14 +121,15 @@ var expenses = [
 ];
 
 // variable for pay period expenses
-var payPeriodExpenses = [];
-
+var payPeriodExpenses =[];
 // variables for calculator
-var calBalance = "";
-var calExpenses = "";
-var calPaid = "";
-var calOutstanding = "";
-var calRemaining = "";
+var calBalance = 1500;
+var calExpenses = 500;
+var calPaid = 300;
+var calOutstanding = calExpenses - calPaid;
+var calRemaining = calBalance - calOutstanding;
+
+
 
 // variable to store months holidays
 var holidays = [];
@@ -341,7 +342,20 @@ $(".expCol").sortable({
 });
 
 // function to calculate and display in calculator
+var calculator = function () {
+  for (var t = 0; t < payPeriodExpenses.length; t++) {
+    calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount)
+  }
+  calcExpEl.textContent = calExpenses;
+};
 
+calculator();
+
+document.getElementById("balance").innerHTML = calBalance;
+document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
+document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
+document.getElementById("paidExpenses").innerHTML = calPaid;
+document.getElementById("balanceRemaining").innerHTML = calRemaining;
 
 // function to generate and display calendar
 var createCalendar = function (data) {
@@ -548,6 +562,7 @@ var getLocal = function () {
 };
 
 // call functions
+
 // get localStorage
 getLocal();
 
