@@ -115,5 +115,30 @@ footer div {
 }
 
 .card-content {
-    font-size: 15px;
+    font-size: 12px;
+}
+
+.card-title {
+    font-size: 12px
+}
+
+@media screen and (max-width: 992px) {
+    .buttons {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .buttons {
+        display: inline;
+    }
+
+    .btn {
+        margin: 5px;
+    }
 }

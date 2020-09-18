@@ -26,58 +26,20 @@
         </div>
         <!-- left column buttons and expenses -->
         <div class="row">
-            <div class="col s3 no-gutters">
+            <div class="col s12 l3 no-gutters buttons">
                 <!-- button for set pay frequency modal -->
                 <!-- Modal Trigger -->
-                <a class="col s12 waves-effect waves-light btn modal-trigger" href="#modal1">Pay-Frequency</a>
-                <!-- Modal Structure -->
-                <div id="modal1" class="modal">
-                    <div class="modal-content">
-                        <p>Please select your payment frequency</p>
-                        <select id="select">
-                            <option value="" disabled selected>Choose your payment </option>
-                            <!-- <option value="weekly">Weekly</option> -->
-                            <option value="bi-weekly">Bi-weekly</option>
-                            <option value="semi-monthly">Semi-monthly</option>
-                        </select>
-                        <div class="hide" id='bi-weekly'>
-                            <label class="activate">When was your last payday?</label>
-                            <input type="text" id='date' class="datepicker" container="container">
-                        </div>
-                        <div class="hide" id='semi-monthly'>
-                            <div>
-                                <label class='activate'>please choose first pay day</label>
-                                <input type="text" id='month1' class="datepicker" container="container">
-                            </div>
-                            <div>
-                                <label class='activate'>please choose second payday</label>
-                                <input type="text" id='month2' class="datepicker" container="container">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">
-                            <button id="submit">Submit</button>
-                        </a>
-                    </div>
-                </div>
-                <div id="modal1" class="modal">
-                    <div class="modal-content">
-                        <p>Please select your payment frequency</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Submit</a>
-                    </div>
-                </div>
+                <a class="col s12 m5 l12  waves-effect waves-light btn modal-trigger" href="#modal1">Pay-Frequency</a>
+                
                 <!-- button for set expenses modal -->
-                <a class="col s12 waves-effect waves-light btn modal-trigger" href="#expenses-modal">Set Expenses</a>
+                <a class="col s12 m5 l12 waves-effect waves-light btn modal-trigger" href="#expenses-modal">Set Expenses</a>
             </div>
         <!-- list of expenses between pay days-->
 
         <!-- right column calendar and calculator -->
 
         <!-- calendar -->
-            <div class="col s9 no-gutters">
+            <div class="col s12 l9">
                 <div id="calCard" class="card grey lighten-2">
                     <div class="card-title">
                         <div class="center-align">
@@ -111,6 +73,45 @@
             </div>
         </div>
     </main>
+    <!-- Pay Frequency Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <p>Please select your payment frequency</p>
+            <select id="select">
+                <option value="" disabled selected>Choose your payment </option>
+                <!-- <option value="weekly">Weekly</option> -->
+                <option value="bi-weekly">Bi-weekly</option>
+                <option value="semi-monthly">Semi-monthly</option>
+            </select>
+            <div class="hide" id='bi-weekly'>
+                <label class="activate">When was your last payday?</label>
+                <input type="text" id='date' class="datepicker" container="container">
+            </div>
+            <div class="hide" id='semi-monthly'>
+                <div>
+                    <label class='activate'>please choose first pay day</label>
+                    <input type="text" id='month1' class="datepicker" container="container">
+                </div>
+                <div>
+                    <label class='activate'>please choose second payday</label>
+                    <input type="text" id='month2' class="datepicker" container="container">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+                <button id="submit">Submit</button>
+            </a>
+        </div>
+    </div>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <p>Please select your payment frequency</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Submit</a>
+        </div>
+    </div>
     <!-- Expenses Main Modal -->
     <div id="expenses-modal" class="modal">
         <div class="modal-content center-align">
