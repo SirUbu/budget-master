@@ -3,6 +3,7 @@
     grid-template-columns: repeat(7, auto);
     grid-template-rows: 30px repeat(5, auto);
     border: solid black 1px;
+    border-radius: 5px;
 }
 
 body {
@@ -13,10 +14,9 @@ a {
     margin-top: 5px;
 }
 
-
 select {
     display: block;
- }  
+}  
 
 .card {
     margin: 0;
@@ -93,9 +93,10 @@ textarea {
     min-height: 60px;
 }
 
-h7 {
+h6 {
     font-style: italic;
 }
+
 h5 {
     font-size: 21px;
 }
@@ -112,14 +113,6 @@ footer {
 
 footer div {
     padding: 20px;
-}
-
-.card-content {
-    font-size: 12px;
-}
-
-.card-title {
-    font-size: 12px
 }
 
 @media screen and (max-width: 992px) {

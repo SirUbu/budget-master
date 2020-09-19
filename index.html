@@ -26,13 +26,13 @@
         </div>
         <!-- left column buttons and expenses -->
         <div class="row">
-            <div class="col s12 l3 no-gutters buttons">
+            <div class="col s12 l3 buttons">
                 <!-- button for set pay frequency modal -->
                 <!-- Modal Trigger -->
-                <a class="col s12 m5 l12  waves-effect waves-light btn modal-trigger" href="#modal1">Pay-Frequency</a>
+                <a class="col s12 m5 l12 waves-light btn modal-trigger" href="#modal1">Pay-Frequency</a>
                 
                 <!-- button for set expenses modal -->
-                <a class="col s12 m5 l12 waves-effect waves-light btn modal-trigger" href="#expenses-modal">Set Expenses</a>
+                <a class="col s12 m5 l12 waves-light btn modal-trigger" href="#expenses-modal">Set Expenses</a>
             </div>
         <!-- list of expenses between pay days-->
 
@@ -46,10 +46,9 @@
                             <div id="year"></div>
                             <div id="month"></div>
                         </div>
-                        <div class="card-content">
-                            <div class="center-align" id="calGrid">
-                            </div>
-                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="center-align" id="calGrid"></div>
                     </div>
                 </div>
                 <div class= "col s12" id= "calculator">
@@ -343,7 +342,7 @@
             <div class="card blue-grey darken-1">
                 <div class="card-content white-text">                    
                     <p class="left-align modalDay"></p>
-                    <h7>All fields require an entry. Amount requires number.</h7>
+                    <h6>All fields require an entry. Amount requires number.</h6>
                     <p class="center-align">Name:</p>
                     <textarea id="name"></textarea>
                     <p class="center-align">Description:</p>
