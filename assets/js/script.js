@@ -378,7 +378,7 @@ var createCalendar = function (data) {
   // clear current content in calendar
   calDatesEl.textContent = "";
   // add weekdays to calendar
-  var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var weekdays = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
   for (var w = 0; w < 7; w++) {
     var weekdayEl = document.createElement("div");
     weekdayEl.textContent = weekdays[w];
