@@ -138,7 +138,11 @@ var holidays = [];
 
 // initialize modal functionality
 $(document).ready(function () {
-  $('.modal').modal();
+  $('.modal').modal({
+    onCloseEnd: function() { 
+      getHolidays();
+    } 
+  });
 
   $(document).click(function (e) {
     if ($(e.target).is('#expenses-sub, #expenses-sub *, .edit, .edit * .modal-day, .modal-day *, .name, .amount')) {
@@ -147,17 +151,9 @@ $(document).ready(function () {
     else {
       resetDelete();
     }
-  });
-  $(document).click(function (e) {
-    if ($(e.target).is('.modal-content, .modal-content *')) {
-      return;
-    }
-    else {
-      getHolidays();
-      console.log("hello")
-    }
-  });
+  });  
 });
+
 
 // function to fetch holidays 
 var getHolidays = function () {

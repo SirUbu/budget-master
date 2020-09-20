@@ -45,14 +45,14 @@ i:hover, .edit:hover { cursor: pointer; }
     background-color: rgba(0,0,0,0.7);
   } 
   
-textarea {
-    background: white;
+#name, #desc, #amt {
+    background-color: white;
     text-align: center;
 }
+
 .expItem {
     background:	#26a59a;
     color:  white;
-    ;
     padding: 3px;
     margin: 2px;
     border-radius: 7px;
