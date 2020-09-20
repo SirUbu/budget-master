@@ -338,20 +338,30 @@ $(".expCol").sortable({
   }
 });
 
+
+
+
+
+
+
+var calBalance = function userBalance() {
+  var i = document.getElementById("balance").value;
+  console.log(i)
+  document.getElementById("userBalance").innerHTML = i;
+};
 // function to calculate and display in calculator
 var calculator = function () {
-  var calBalance = function displayCalBalance () {
-    var i = document.getElementById("balance").value;
-  }
+  
   var calPaid = 0;
   var calExpenses = 0;
   for (var t = 0; t < payPeriodExpenses.length; t++) {
     calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount)
   }
   var calOutstanding = calExpenses - calPaid;
-  var calRemaining = calBalance - calOutstanding;
+  var calRemaining = calBalance() - calOutstanding;
   calcExpEl.textContent = calExpenses;
  
+  
   document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
   document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
   document.getElementById("paidExpenses").innerHTML = calPaid;
