@@ -215,8 +215,6 @@ $('.save').click(function () {
     return;
   }
 
-
-  // needs to replace index of array instead
   // if edit, retrieve index and don't push
   if ($("#delIco").hasClass("hide")) {
     expenses[expIndex].expenseList.push({
@@ -328,13 +326,8 @@ $(".expCol").sortable({
     });
     var someIndex = $(this).siblings().children().children().attr("id");
     someIndex = someIndex.slice(3, someIndex.length - 2) - 1;
-    // console.log(tempArr)
-    // console.log(someIndex)
     expenses[someIndex].expenseList = tempArr;
     saveExp();
-
-    // use logic of edit to get new indexes  
-    // rewrite the arrays
   }
 });
 
