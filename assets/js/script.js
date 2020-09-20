@@ -340,7 +340,9 @@ $(".expCol").sortable({
 
 // function to calculate and display in calculator
 var calculator = function () {
-  var calBalance = 1500;
+  var calBalance = function displayCalBalance () {
+    var i = document.getElementById("balance").value;
+  }
   var calPaid = 0;
   var calExpenses = 0;
   for (var t = 0; t < payPeriodExpenses.length; t++) {
@@ -349,12 +351,12 @@ var calculator = function () {
   var calOutstanding = calExpenses - calPaid;
   var calRemaining = calBalance - calOutstanding;
   calcExpEl.textContent = calExpenses;
-  
-  document.getElementById("balance").textContent = calBalance;
+ 
   document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
   document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
   document.getElementById("paidExpenses").innerHTML = calPaid;
   document.getElementById("balanceRemaining").innerHTML = calRemaining;
+  
   console.log("running");
 };
 
