@@ -154,6 +154,7 @@ $(document).ready(function () {
     }
     else {
       getHolidays();
+      console.log("hello")
     }
   });
 });
