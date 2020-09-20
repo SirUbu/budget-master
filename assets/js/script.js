@@ -123,11 +123,7 @@ var expenses = [
 // variable for pay period expenses
 var payPeriodExpenses =[];
 // variables for calculator
-var calBalance = 1500;
-var calExpenses = 500;
-var calPaid = 300;
-var calOutstanding = calExpenses - calPaid;
-var calRemaining = calBalance - calOutstanding;
+
 
 
 
@@ -152,7 +148,7 @@ $(document).ready(function () {
     if ($(e.target).is('.modal-content, .modal-content *')) {
       return;
     }
-    else {
+    else { 
       getHolidays();
     }
   });
@@ -160,6 +156,7 @@ $(document).ready(function () {
 
 // function to fetch holidays 
 var getHolidays = function () {
+  console.log("holidays");
   // set variables
   var apiKey = "421967198c7598b1318b049e342e0c87b3b59f3e";
   var apiYear = moment().format("YYYY");
@@ -343,19 +340,27 @@ $(".expCol").sortable({
 
 // function to calculate and display in calculator
 var calculator = function () {
+  var calBalance = 1500;
+  var calPaid = 0;
+  var calExpenses = 0;
   for (var t = 0; t < payPeriodExpenses.length; t++) {
     calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount)
   }
+  var calOutstanding = calExpenses - calPaid;
+  var calRemaining = calBalance - calOutstanding;
   calcExpEl.textContent = calExpenses;
+  
+  document.getElementById("balance").textContent = calBalance;
+  document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
+  document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
+  document.getElementById("paidExpenses").innerHTML = calPaid;
+  document.getElementById("balanceRemaining").innerHTML = calRemaining;
+  console.log("running");
 };
 
-calculator();
 
-document.getElementById("balance").innerHTML = calBalance;
-document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
-document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
-document.getElementById("paidExpenses").innerHTML = calPaid;
-document.getElementById("balanceRemaining").innerHTML = calRemaining;
+
+
 
 // function to generate and display calendar
 var createCalendar = function (data) {
@@ -530,6 +535,7 @@ var createCalendar = function (data) {
     // reset loopDay date
     var loopDay = moment().subtract(additional, 'days');
   }
+  calculator();
 };
 
 // function to calculate and display in calculator
@@ -568,6 +574,7 @@ getLocal();
 
 // calendar generation/display
 getHolidays();
+
 setInterval(getHolidays(), ((60 * 1000) * 60) * 6);
 
 // event listeners
