@@ -142,16 +142,18 @@ var getHolidays = function () {
           // pass json data to createCalendar function
           createCalendar(holidayData);
           calculator();
+          payPeriodExpensesList();
         });
         // if request was unsuccessful
       } else {
         // call createCalendar function without holidays
         createCalendar();
         calculator();
+        payPeriodExpensesList();
       }
     })
     // if unable to connect to calendarific, still generate calendar
-    .catch(createCalendar, calculator);
+    .catch(createCalendar, calculator, payPeriodExpensesList);
 };
 
 $('.modal-day').click(function () {
@@ -506,6 +508,47 @@ var createCalendar = function (data) {
   }
   
 };
+
+function payPeriodExpensesList () {
+  // console.log('status?', expense.status)
+  $('#expenses').empty();
+  for (let index = 0; index < payPeriodExpenses.length; index++) {
+    $('#expenses').append(
+   `<div class="row no-gutters">
+  <div class="card">
+  <div class="card-content">
+  <div class="row">
+  <div class="col s5
+  no-gutters">
+  <div class='Amount'>${payPeriodExpenses[index].name}</div>
+  <strong class='Expense'> $${payPeriodExpenses[index].amount}</strong>
+  <br>
+  </div>
+  <div class="col s7 no-gutters">
+  <form action="#">
+  <p>
+  <label>
+  <input type="checkbox" ${payPeriodExpenses[index].status ?  'checked' : ''} onclick="button()" class="paid-checkbox"/>
+  <span class='paid'>Paid</span>
+  </label>
+  </p>
+  <p>
+  <label>
+  <input type="checkbox" ${!payPeriodExpenses[index].status ?  'checked' : ''} onclick="button()" class="outstanding-checkbox"/>
+  <span class='outstanding'>Outstanding</span>
+  </label>
+  </p>
+  </form>
+  </div>
+  </div>
+  </div>
+  </div>`
+    )}
+}
+
+function button () {
+  console.dir($(this));
+}
 
 // function to save localStorage
 var saveExp = function () {
