@@ -328,10 +328,10 @@ var calculator = function () {
   var calOutstanding = calExpenses - calPaid;
   var calRemaining =  calBalance - calOutstanding;
   calcExpEl.textContent = calExpenses;
-  document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
-  document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
-  document.getElementById("paidExpenses").innerHTML = calPaid;
-  document.getElementById("balanceRemaining").innerHTML = calRemaining;  
+  document.getElementById("totalPayPeriodExpenses").innerHTML = `$${calExpenses}`;
+  document.getElementById("outstandingExpenses").innerHTML = `$${calOutstanding}`;
+  document.getElementById("paidExpenses").innerHTML = `$${calPaid}`;
+  document.getElementById("balanceRemaining").innerHTML = `$${calRemaining}`;  
 };
 
 // function to generate and display calendar
@@ -602,7 +602,7 @@ var getLocal = function () {
   if (!calBalance) {
     calBalance = 0;
   };
-  document.getElementById("userBalance").innerHTML = calBalance;
+  document.getElementById("userBalance").innerHTML = `$${calBalance}`;
 };
 
 // call functions
