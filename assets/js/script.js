@@ -417,7 +417,7 @@ var createCalendar = function (data) {
     dateEl.setAttribute("id", "dateCard");
     dateEl.setAttribute("date", dateAtt);
     var dateHeader = document.createElement("div");
-    dateHeader.classList = "card-title center-align blue-grey darken-2 white-text";
+    dateHeader.classList = "card-title center-align black white-text";
     dateHeader.textContent = loopDay.format("Do");
     dateEl.appendChild(dateHeader);
     var dateBody = document.createElement("div"); dateBody.classList = "card-body";
@@ -441,7 +441,7 @@ var createCalendar = function (data) {
       }
       // highlight if date is in pay period
       if ((parseInt(moment().format("DD")) >= parseInt(payDate1.format("DD")) && parseInt(moment().format("DD")) < parseInt(payDate2.format("DD")) && parseInt(loopDay.format("DD")) >= parseInt(payDate1.format("DD")) && parseInt(loopDay.format("DD")) < parseInt(payDate2.format("DD"))) || (parseInt(moment().format("DD")) >= parseInt(payDate2.format("DD")) && parseInt(moment().format("DD")) < parseInt(payDate1.format("DD")) && parseInt(loopDay.format("DD")) >= parseInt(payDate2.format("DD")) && parseInt(loopDay.format("DD")) < parseInt(payDate1.format("DD")))) {
-        dateEl.classList = "card grey";
+        dateEl.classList = "card currentPayCard";
         // push expenses to payPeriodExpenses
         for (var c = 0; c < expenses.length; c++) {
           if (expenses[c].day === loopDay.format("Do")) {
@@ -461,7 +461,7 @@ var createCalendar = function (data) {
       }
       // highlight if date is in pay period
       if (moment().format("MM/DD") >= recentPayMoment.format("MM/DD") && moment().format("MM/DD") < nextPayDate.format("MM/DD") && loopDay.format("MM/DD") >= recentPayMoment.format("MM/DD") && loopDay.format("MM/DD") < nextPayDate.format("MM/DD") || moment().format("MM/DD") >= nextPayDate.format("MM/DD") && moment().format("MM/DD") < lastPayDate.format("MM/DD") && loopDay.format("MM/DD") >= nextPayDate.format("MM/DD") && loopDay.format("MM/DD") < lastPayDate.format("MM/DD")) {
-        dateEl.classList = "card grey";
+        dateEl.classList = "card currentPayCard";
         // push expenses to payPeriodExpenses
         for (var c = 0; c < expenses.length; c++) {
           if (expenses[c].day === loopDay.format("Do")) {
@@ -515,7 +515,7 @@ function payPeriodExpensesList () {
   for (let index = 0; index < payPeriodExpenses.length; index++) {
     $('#expenses').append(
    `<div class="row no-gutters">
-  <div class="card">
+  <div id="expCard" class="card">
   <div class="card-content">
   <div class="row">
   <div class="col s5
