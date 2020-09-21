@@ -7,6 +7,7 @@
 
 #expCard {
     background-color: var(--teal);
+    color: #ffffff;
 }
 #calCard {
     background-color: var(--teal);
@@ -19,6 +20,10 @@
     grid-template-rows: 30px repeat(5, auto);
     border: solid black 1px;
     border-radius: 5px;
+}
+
+.currentPayCard {
+    background-color: var(--mediumGrey);
 }
 
 body {
