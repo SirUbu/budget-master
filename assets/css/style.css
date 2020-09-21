@@ -3,16 +3,20 @@
     grid-template-columns: repeat(7, auto);
     grid-template-rows: 30px repeat(5, auto);
     border: solid black 1px;
+    border-radius: 5px;
+}
+
+body {
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 a {
     margin-top: 5px;
 }
 
-
-  select {
+select {
     display: block;
- }  
+}  
 
 .card {
     margin: 0;
@@ -25,7 +29,8 @@ a {
 i:hover, .edit:hover { cursor: pointer; }
 
 .expense-row {
-    border: dashed lightgray 1px;    
+    border: dashed #d2d5d7 1px;    
+    background-color: #d4e9e8;
 }
 .expCol {
     display: inline-flex;
@@ -40,17 +45,19 @@ i:hover, .edit:hover { cursor: pointer; }
     background-color: rgba(0,0,0,0.7);
   } 
   
-textarea {
-    background: white;
+#name, #desc, #amt {
+    background-color: white;
     text-align: center;
 }
+
 .expItem {
-    background: teal;
-    color: yellowgreen;
-    padding: 5px;
+    background:	#26a59a;
+    color:  white;
+    padding: 3px;
     margin: 2px;
     border-radius: 7px;
-    line-height: 5px;
+    line-height: 6px;
+    width: 111px;
 }
 
 .red {
@@ -58,7 +65,16 @@ textarea {
 }
 
 .datepicker {
-    color:blue;
+    color: #0144ac;
+}
+
+.alert-color {
+    background-color:#cc0000
+}
+
+.main-color {
+    background-color: #0144ac;
+    color: #d2d5d7;
 }
 
 .hide {
@@ -77,8 +93,12 @@ textarea {
     min-height: 60px;
 }
 
-h7 {
+h6 {
     font-style: italic;
+}
+
+h5 {
+    font-size: 21px;
 }
 
 header h1 {
@@ -95,6 +115,23 @@ footer div {
     padding: 20px;
 }
 
-.card-content {
-    font-size: 15px;
+@media screen and (max-width: 992px) {
+    .buttons {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .buttons {
+        display: inline;
+    }
+
+    .btn {
+        margin: 5px;
+    }
 }
