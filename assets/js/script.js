@@ -306,6 +306,8 @@ var calRemaining =  0;
 var calcBal = function userBalance() {
   calBalance = document.getElementById("balance").value;
   document.getElementById("userBalance").innerHTML = calBalance;
+  saveBal();
+  calculator();
 };
 
 // function to calculate and display in calculator
@@ -329,8 +331,7 @@ var calculator = function () {
   document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
   document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
   document.getElementById("paidExpenses").innerHTML = calPaid;
-  document.getElementById("balanceRemaining").innerHTML = calRemaining;
-  saveBal();
+  document.getElementById("balanceRemaining").innerHTML = calRemaining;  
 };
 
 // function to generate and display calendar
