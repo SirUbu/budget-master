@@ -15,6 +15,8 @@ function generateQuote() {
     });
 }
 
+generateQuote()
+
 // get DOM elements
 var calDatesEl = document.querySelector("#calGrid");
 var cardContentEl = document.querySelector("#calBody");
