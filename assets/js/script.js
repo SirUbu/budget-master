@@ -169,15 +169,18 @@ var getHolidays = function () {
         holidayResponse.json().then(function (holidayData) {
           // pass json data to createCalendar function
           createCalendar(holidayData);
+          calculator();
         });
         // if request was unsuccessful
       } else {
         // call createCalendar function without holidays
         createCalendar();
+        calculator();
       }
     })
     // if unable to connect to calendarific, still generate calendar
-    .catch(createCalendar);
+    .catch(createCalendar, calculator);
+
 };
 
 $('.modal-day').click(function () {
@@ -341,26 +344,43 @@ $(".expCol").sortable({
 
 
 
+var calOutstanding = 0;
+var calBalance = 0;
+var calPaid = 0;
+var calExpenses = 0;
+var calRemaining =  0;
+
+var calcBal = function userBalance() {
 
 
-
-var calBalance = function userBalance() {
-  var i = document.getElementById("balance").value;
-  console.log(i)
-  document.getElementById("userBalance").innerHTML = i;
+  calBalance = document.getElementById("balance").value;
+  
+  document.getElementById("userBalance").innerHTML = calBalance;
 };
+
+
 // function to calculate and display in calculator
 var calculator = function () {
+  calOutstanding = 0;
+  calPaid = 0;
+  calExpenses = 0;
+  calRemaining =  0;
   
-  var calPaid = 0;
-  var calExpenses = 0;
   for (var t = 0; t < payPeriodExpenses.length; t++) {
-    calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount)
-  }
+    calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount);
+    if (!payPeriodExpenses[t].status) {
+      calOutstanding = calOutstanding + payPeriodExpenses[t].amount;
+    }
+    else { 
+      calPaid = calPaid + payPeriodExpenses[t].amount;
+    }
+  };
+
   var calOutstanding = calExpenses - calPaid;
-  var calRemaining = calBalance() - calOutstanding;
+  var calRemaining =  calBalance - calOutstanding;
   calcExpEl.textContent = calExpenses;
- 
+
+
   
   document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
   document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
@@ -368,6 +388,7 @@ var calculator = function () {
   document.getElementById("balanceRemaining").innerHTML = calRemaining;
   
   console.log("running");
+  saveBal();
 };
 
 
@@ -547,7 +568,7 @@ var createCalendar = function (data) {
     // reset loopDay date
     var loopDay = moment().subtract(additional, 'days');
   }
-  calculator();
+  
 };
 
 // function to calculate and display in calculator
@@ -560,6 +581,9 @@ var saveExp = function () {
 var savePayFreq = function () {
   localStorage.setItem("payFreq", JSON.stringify(payFrequency));
 };
+var saveBal = function () {
+  localStorage.setItem("calBalance", JSON.stringify(calBalance));
+}
 
 // function to get localStorage
 var getLocal = function () {
@@ -577,6 +601,11 @@ var getLocal = function () {
   if (recallPayFreq) {
     payFrequency = recallPayFreq;
   }
+  calBalance = JSON.parse(localStorage.getItem("calBalance"));
+  if (!calBalance) {
+    calBalance = 0;
+  };
+  document.getElementById("userBalance").innerHTML = calBalance;
 };
 
 // call functions
@@ -586,7 +615,8 @@ getLocal();
 
 // calendar generation/display
 getHolidays();
+//debugger;
 
-setInterval(getHolidays(), ((60 * 1000) * 60) * 6);
 
+//setInterval(getHolidays(), ((60 * 1000) * 60) * 6);
 // event listeners
