@@ -123,11 +123,7 @@ var expenses = [
 // variable for pay period expenses
 var payPeriodExpenses =[];
 // variables for calculator
-var calBalance = 1500;
-var calExpenses = 500;
-var calPaid = 300;
-var calOutstanding = calExpenses - calPaid;
-var calRemaining = calBalance - calOutstanding;
+
 
 
 
@@ -151,12 +147,21 @@ $(document).ready(function () {
     else {
       resetDelete();
     }
+  });
+  $(document).click(function (e) {
+    if ($(e.target).is('.modal-content, .modal-content *')) {
+      return;
+    }
+    else { 
+      getHolidays();
+    }
   });  
 });
 
 
 // function to fetch holidays 
 var getHolidays = function () {
+  console.log("holidays");
   // set variables
   var apiKey = "421967198c7598b1318b049e342e0c87b3b59f3e";
   var apiYear = moment().format("YYYY");
@@ -169,15 +174,18 @@ var getHolidays = function () {
         holidayResponse.json().then(function (holidayData) {
           // pass json data to createCalendar function
           createCalendar(holidayData);
+          calculator();
         });
         // if request was unsuccessful
       } else {
         // call createCalendar function without holidays
         createCalendar();
+        calculator();
       }
     })
     // if unable to connect to calendarific, still generate calendar
-    .catch(createCalendar);
+    .catch(createCalendar, calculator);
+
 };
 
 $('.modal-day').click(function () {
@@ -331,21 +339,59 @@ $(".expCol").sortable({
   }
 });
 
-// function to calculate and display in calculator
-var calculator = function () {
-  for (var t = 0; t < payPeriodExpenses.length; t++) {
-    calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount)
-  }
-  calcExpEl.textContent = calExpenses;
+
+
+
+var calOutstanding = 0;
+var calBalance = 0;
+var calPaid = 0;
+var calExpenses = 0;
+var calRemaining =  0;
+
+var calcBal = function userBalance() {
+
+
+  calBalance = document.getElementById("balance").value;
+  
+  document.getElementById("userBalance").innerHTML = calBalance;
 };
 
-calculator();
 
-document.getElementById("balance").innerHTML = calBalance;
-document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
-document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
-document.getElementById("paidExpenses").innerHTML = calPaid;
-document.getElementById("balanceRemaining").innerHTML = calRemaining;
+// function to calculate and display in calculator
+var calculator = function () {
+  calOutstanding = 0;
+  calPaid = 0;
+  calExpenses = 0;
+  calRemaining =  0;
+  
+  for (var t = 0; t < payPeriodExpenses.length; t++) {
+    calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount);
+    if (!payPeriodExpenses[t].status) {
+      calOutstanding = calOutstanding + payPeriodExpenses[t].amount;
+    }
+    else { 
+      calPaid = calPaid + payPeriodExpenses[t].amount;
+    }
+  };
+
+  var calOutstanding = calExpenses - calPaid;
+  var calRemaining =  calBalance - calOutstanding;
+  calcExpEl.textContent = calExpenses;
+
+
+  
+  document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
+  document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
+  document.getElementById("paidExpenses").innerHTML = calPaid;
+  document.getElementById("balanceRemaining").innerHTML = calRemaining;
+  
+  console.log("running");
+  saveBal();
+};
+
+
+
+
 
 // function to generate and display calendar
 var createCalendar = function (data) {
@@ -520,6 +566,7 @@ var createCalendar = function (data) {
     // reset loopDay date
     var loopDay = moment().subtract(additional, 'days');
   }
+  
 };
 
 // function to calculate and display in calculator
@@ -532,6 +579,9 @@ var saveExp = function () {
 var savePayFreq = function () {
   localStorage.setItem("payFreq", JSON.stringify(payFrequency));
 };
+var saveBal = function () {
+  localStorage.setItem("calBalance", JSON.stringify(calBalance));
+}
 
 // function to get localStorage
 var getLocal = function () {
@@ -549,6 +599,11 @@ var getLocal = function () {
   if (recallPayFreq) {
     payFrequency = recallPayFreq;
   }
+  calBalance = JSON.parse(localStorage.getItem("calBalance"));
+  if (!calBalance) {
+    calBalance = 0;
+  };
+  document.getElementById("userBalance").innerHTML = calBalance;
 };
 
 // call functions
@@ -558,6 +613,8 @@ getLocal();
 
 // calendar generation/display
 getHolidays();
-setInterval(getHolidays(), ((60 * 1000) * 60) * 6);
+//debugger;
 
+
+//setInterval(getHolidays(), ((60 * 1000) * 60) * 6);
 // event listeners
