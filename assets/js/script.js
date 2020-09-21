@@ -308,6 +308,7 @@ var calRemaining =  0;
 var calcBal = function userBalance() {
   calBalance = document.getElementById("balance").value;
   document.getElementById("userBalance").innerHTML = calBalance;
+  document.getElementById("balance").value = '';
   saveBal();
   calculator();
 };
@@ -321,7 +322,7 @@ var calculator = function () {
   for (var t = 0; t < payPeriodExpenses.length; t++) {
     calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount);
     if (!payPeriodExpenses[t].status) {
-      calOutstanding = calOutstanding + payPeriodExpenses[t].amount;
+      calOutstanding = calOutstanding + parseInt(payPeriodExpenses[t].amount);
     }
     else { 
       calPaid = calPaid + parseInt(payPeriodExpenses[t].amount);
@@ -530,13 +531,13 @@ function payPeriodExpensesList () {
   <form action="#">
   <p>
   <label>
-  <input type="checkbox" ${payPeriodExpenses[index].status ?  'checked' : ''} onclick="button(${index})" class="paid-checkbox"/>
+  <input type="checkbox" ${payPeriodExpenses[index].status ?  'checked' : ''} onclick="button(${index}, 'paid')" class="paid-checkbox"/>
   <span class='paid'>Paid</span>
   </label>
   </p>
   <p>
   <label>
-  <input type="checkbox" ${!payPeriodExpenses[index].status ?  'checked' : ''} onclick="button()" class="outstanding-checkbox"/>
+  <input type="checkbox" ${!payPeriodExpenses[index].status ?  'checked' : ''} onclick="button(${index})" class="outstanding-checkbox"/>
   <span class='outstanding'>Outstanding</span>
   </label>
   </p>
@@ -548,10 +549,9 @@ function payPeriodExpensesList () {
     )}
 }
 
-function button (index) {
-
+function button (index, paid) {
 var checkIndex=$(`.checkIndex${index}`).text()
-if (checkIndex) {
+if (paid === "paid") {
   $(".Amount").each(function () {
   for (var c = 0; c < expenses.length; c++) {    
       for (var p = 0; p < expenses[c].expenseList.length; p++) {
@@ -565,9 +565,10 @@ else {
   $(".Amount").each(function () {
     for (var c = 0; c < expenses.length; c++) {    
         for (var p = 0; p < expenses[c].expenseList.length; p++) {
+          if (expenses[c].expenseList[p].name === checkIndex) {  
             expenses[c].expenseList[p].status = false;
         }    
-    }})
+    }}})
 }
 saveExp();
 payPeriodExpensesList();
