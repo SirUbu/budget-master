@@ -7,6 +7,7 @@
 
 #expCard {
     background-color: var(--teal);
+    color: #ffffff;
 }
 #calCard {
     background-color: var(--teal);
@@ -19,6 +20,10 @@
     grid-template-rows: 30px repeat(5, auto);
     border: solid black 1px;
     border-radius: 5px;
+}
+
+.currentPayCard {
+    background-color: var(--mediumGrey);
 }
 
 body {
@@ -105,6 +110,10 @@ i:hover, .edit:hover { cursor: pointer; }
     border: var(--darkGrey) solid 1px;
 }
 
+.card-title {
+    color: #ffffff;
+}
+
 .card-body {
     min-height: 60px;
 }
@@ -155,25 +164,6 @@ footer div {
     background-color: var(--mediumGrey);
 }
 
-
-
-@media screen and (max-width: 992px) {
-    .buttons {
-        display: flex;
-        margin-bottom: 10px;
-    }
-
-    .btn {
-        margin: auto;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .buttons {
-        display: inline;
-    }
-
-    .btn {
-        margin: 5px;
-    }
+.btn {
+    margin-bottom: 5px;
 }
