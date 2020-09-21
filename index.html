@@ -46,7 +46,7 @@
 
         <!-- calendar -->
             <div class="col s12 l9">
-                <div id="calCard" class="card grey lighten-2">
+                <div id="calCard" class="card">
                     <div class="card-title">
                         <div class="center-align">
                             <div id="year"></div>
@@ -57,10 +57,10 @@
                         <div class="center-align" id="calGrid"></div>
                     </div>
                 </div>
-                <div id="calculator" class="card grey lighten-2">
+                <div id="calculator" class="card">
                     <div class="card-title col s12">
                         <div class="col s12">Budget Calculator</div>
-                        <div class="col s6">Enter Account Balance Here: </div>
+                        <div id=enterBal class="col s6">Enter Account Balance Here: </div>
                         <input id= "balance" class="col s3 inputBal">
                         <button onclick="calcBal()">Submit</button>
                     </div>
@@ -117,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer" style="background-color: #4E5567;">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">
                 <button id="submit">Submit</button>
             </a>
