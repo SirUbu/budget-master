@@ -5,6 +5,10 @@
     --darkGrey: #1B212C;
 }
 
+#quote, #author {
+    color: white;
+}
+
 #expCard {
     background-color: var(--teal);
     color: #ffffff;
