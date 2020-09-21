@@ -1,5 +1,4 @@
 // Quote
-
 //app.js
 const url = "https://api.quotable.io/random";
 function generateQuote() {
@@ -16,9 +15,6 @@ function generateQuote() {
     });
 }
 
-setInterval(generateQuote(), 8.64e+7);
-
-
 // get DOM elements
 var calDatesEl = document.querySelector("#calGrid");
 var cardContentEl = document.querySelector("#calBody");
@@ -30,13 +26,7 @@ var calcExpEl = document.getElementById("totalPayPeriodExpenses")
 var todayDate = moment().format("MM/DD/YYYY");
 //variables from set pay frequency function
 var payFrequency = {};
-// {type: semi-monthly,
-//  day1: "5th",
-//  day2: "22nd"}
-// OR
-// {type: bi-weekly,
-// recent: "09/04/2020"}
-// variables from set expenses function 
+
 $(document).ready(function () {
   $('.modal').modal();
   $('.datepicker').datepicker({
@@ -46,11 +36,6 @@ $(document).ready(function () {
 
 function checkity() {
   var selectValue = $('#select').val();
-  // if (selectValue === 'weekly') {
-  //   console.log('hi im weekly')
-  //   return {
-  //   }
-  // }
   if (selectValue === 'bi-weekly') {
     payFrequency = {
       type: 'bi-weekly',
@@ -83,9 +68,7 @@ function handleselectchange() {
 $('#submit').on('click', checkity);
 $("#select").on('change', handleselectchange)
 
-
 var expenses = [
-  // {day: "1st", expenseList: [{name: "", description: "",amount: "", status: false}]},
   { day: "1st", expenseList: [], number: "1" },
   { day: "2nd", expenseList: [], number: "2" },
   { day: "3rd", expenseList: [], number: "3" },
@@ -122,16 +105,11 @@ var expenses = [
 
 // variable for pay period expenses
 var payPeriodExpenses =[];
-// variables for calculator
-
-
-
 
 // variable to store months holidays
 var holidays = [];
 
 // functions
-
 // initialize modal functionality
 $(document).ready(function () {
   $('.modal').modal({
@@ -139,7 +117,6 @@ $(document).ready(function () {
       getHolidays();
     } 
   });
-
   $(document).click(function (e) {
     if ($(e.target).is('#expenses-sub, #expenses-sub *, .edit, .edit * .modal-day, .modal-day *, .name, .amount')) {
       return;
@@ -148,20 +125,10 @@ $(document).ready(function () {
       resetDelete();
     }
   });
-  $(document).click(function (e) {
-    if ($(e.target).is('.modal-content, .modal-content *')) {
-      return;
-    }
-    else { 
-      getHolidays();
-    }
-  });  
 });
-
 
 // function to fetch holidays 
 var getHolidays = function () {
-  console.log("holidays");
   // set variables
   var apiKey = "421967198c7598b1318b049e342e0c87b3b59f3e";
   var apiYear = moment().format("YYYY");
@@ -185,7 +152,6 @@ var getHolidays = function () {
     })
     // if unable to connect to calendarific, still generate calendar
     .catch(createCalendar, calculator);
-
 };
 
 $('.modal-day').click(function () {
@@ -193,11 +159,6 @@ $('.modal-day').click(function () {
   $('.modalDay').text("Day: " + modalDay);
   $('#name, #desc, #amt').val("");
 });
-
-// function to fetch and display quote
-
-
-// function to set pay frequency
 
 // function to create elements
 var createElem = function (index, day, name, description, amount) {
@@ -253,7 +214,6 @@ $('#delIco').click(function () {
   expenses[dayIndex].expenseList.splice(expIndex);
   var thisIndex = ".thisIndex" + expIndex;
   $(thisIndex).remove();
-
   resetDelete();
   saveExp();
 });
@@ -283,7 +243,6 @@ $(document).on('click', '.edit', function () {
   $('#name').val(name);
   $('#desc').val(desc);
   $('#amt').val(amt);
-
   $("#delIco").removeClass("hide");
   $("#delIco").addClass(dayIndex);
   $("#delIco").addClass(expIndex);
@@ -313,17 +272,14 @@ $(".expCol").sortable({
         .find(".name")
         .text()
         .trim();
-
       var amount = $(this)
         .find(".amount")
         .text()
         .trim();
-
       var description = $(this)
         .find(".description")
         .text()
         .trim();
-
       // add everything to temp arrays as objects
       tempArr.push({
         name: name,
@@ -339,9 +295,6 @@ $(".expCol").sortable({
   }
 });
 
-
-
-
 var calOutstanding = 0;
 var calBalance = 0;
 var calPaid = 0;
@@ -349,13 +302,9 @@ var calExpenses = 0;
 var calRemaining =  0;
 
 var calcBal = function userBalance() {
-
-
   calBalance = document.getElementById("balance").value;
-  
   document.getElementById("userBalance").innerHTML = calBalance;
 };
-
 
 // function to calculate and display in calculator
 var calculator = function () {
@@ -363,7 +312,6 @@ var calculator = function () {
   calPaid = 0;
   calExpenses = 0;
   calRemaining =  0;
-  
   for (var t = 0; t < payPeriodExpenses.length; t++) {
     calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount);
     if (!payPeriodExpenses[t].status) {
@@ -373,25 +321,15 @@ var calculator = function () {
       calPaid = calPaid + payPeriodExpenses[t].amount;
     }
   };
-
   var calOutstanding = calExpenses - calPaid;
   var calRemaining =  calBalance - calOutstanding;
   calcExpEl.textContent = calExpenses;
-
-
-  
   document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
   document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
   document.getElementById("paidExpenses").innerHTML = calPaid;
   document.getElementById("balanceRemaining").innerHTML = calRemaining;
-  
-  console.log("running");
   saveBal();
 };
-
-
-
-
 
 // function to generate and display calendar
 var createCalendar = function (data) {
@@ -569,9 +507,6 @@ var createCalendar = function (data) {
   
 };
 
-// function to calculate and display in calculator
-
-
 // function to save localStorage
 var saveExp = function () {
   localStorage.setItem("expenses", JSON.stringify(expenses));
@@ -607,14 +542,8 @@ var getLocal = function () {
 };
 
 // call functions
-
 // get localStorage
 getLocal();
 
 // calendar generation/display
 getHolidays();
-//debugger;
-
-
-//setInterval(getHolidays(), ((60 * 1000) * 60) * 6);
-// event listeners

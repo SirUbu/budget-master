@@ -51,35 +51,37 @@
                         <div class="center-align" id="calGrid"></div>
                     </div>
                 </div>
-                <div class= "col s12" id= "calculator">
-                    <head> Budget Calculator</head>
-                    <p>
-                        Enter Account Balance Here 
-                        <input id= "balance">
-                        <button onclick="calcBal()">submit</button>
-                    </p>
-                    <p>
-                        Current Account Balance
-                         <div id= "userBalance"></div>
-                        
-                        
-                    </p>
-                    <p>
-                        Pay Period Total Expenses 
-                        <div id= "totalPayPeriodExpenses"></div>
-                    </p>
-                    <p>
-                        Pay Period Outstanding Expenses
-                        <div id= "outstandingExpenses"></div>
-                    </p>
-                    <p>
-                        Pay Period Paid Expenses
-                        <div id= "paidExpenses"></div>
-                    </p>
-                    <p>
-                        Balance After Expenses
-                        <div id= "balanceRemaining"></div>
-                    </p>
+                <div id="calculator" class="card grey lighten-2">
+                    <div class="card-title col s12">
+                        <div class="col s12">Budget Calculator</div>
+                        <div class="col s6">Enter Account Balance Here: </div>
+                        <input id= "balance" class="col s3 inputBal">
+                        <button onclick="calcBal()">Submit</button>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                            <span class="col s3">
+                                <p>Current Account Balance</p>
+                                <p id= "userBalance"></p>
+                            </span>
+                            <span class="col s2">
+                                <p>Pay Period Total Expenses</p>
+                                <p id= "totalPayPeriodExpenses"></p>
+                            </span>
+                            <span class="col s2">
+                                <p>Pay Period Outstanding Expenses</p> 
+                                <p id= "outstandingExpenses"></p>
+                            </span>
+                            <span class="col s2">
+                                <p>Pay Period Paid Expenses</p>
+                                <p id= "paidExpenses"></p>
+                            </span>
+                            <span class="col s3">
+                                <p>Balance After Expenses</p>
+                                <p id= "balanceRemaining"></p>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -106,6 +106,17 @@ header h1 {
     padding: 20px;
 }
 
+#calculator {
+    margin-top: 15px;
+
+}
+
+#calculator span {
+    padding: 0;
+    border: black solid 1px;
+    border-radius: 10px;
+}
+
 footer {
     margin: 0;
     padding: 0;
