@@ -1,3 +1,10 @@
+:root {
+    --teal: #82C7A5;
+    --blue: #0145AC;
+    --mediumGrey: #4E5567;
+    --darkGrey: #1B212C;
+}
+
 #calGrid {
     display: grid;
     grid-template-columns: repeat(7, auto);
@@ -65,7 +72,7 @@ i:hover, .edit:hover { cursor: pointer; }
 }
 
 .datepicker {
-    color: #0144ac;
+    color: var(--blue);
 }
 
 .alert-color {
@@ -73,7 +80,7 @@ i:hover, .edit:hover { cursor: pointer; }
 }
 
 .main-color {
-    background-color: #0144ac;
+    background-color: var(--blue);
     color: #d2d5d7;
 }
 
