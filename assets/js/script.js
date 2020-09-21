@@ -324,7 +324,7 @@ var calculator = function () {
       calOutstanding = calOutstanding + payPeriodExpenses[t].amount;
     }
     else { 
-      calPaid = calPaid + payPeriodExpenses[t].amount;
+      calPaid = calPaid + parseInt(payPeriodExpenses[t].amount);
     }
   };
   var calOutstanding = calExpenses - calPaid;
@@ -518,7 +518,7 @@ function payPeriodExpensesList () {
     $('#expenses').append(
    `<div class="row no-gutters">
   <div id="expCard" class="card">
-  <div class="card-content">
+  <div class="card-content side-exp">
   <div class="row">
   <div class="col s5
   no-gutters">
@@ -571,6 +571,7 @@ else {
 }
 saveExp();
 payPeriodExpensesList();
+calculator();
 }
 
 // function to save localStorage
