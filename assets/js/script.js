@@ -1,5 +1,4 @@
 // Quote
-
 //app.js
 const url = "https://api.quotable.io/random";
 function generateQuote() {
@@ -16,9 +15,6 @@ function generateQuote() {
     });
 }
 
-setInterval(generateQuote(), 8.64e+7);
-
-
 // get DOM elements
 var calDatesEl = document.querySelector("#calGrid");
 var cardContentEl = document.querySelector("#calBody");
@@ -30,13 +26,7 @@ var calcExpEl = document.getElementById("totalPayPeriodExpenses")
 var todayDate = moment().format("MM/DD/YYYY");
 //variables from set pay frequency function
 var payFrequency = {};
-// {type: semi-monthly,
-//  day1: "5th",
-//  day2: "22nd"}
-// OR
-// {type: bi-weekly,
-// recent: "09/04/2020"}
-// variables from set expenses function 
+
 $(document).ready(function () {
   $('.modal').modal();
   $('.datepicker').datepicker({
@@ -46,11 +36,6 @@ $(document).ready(function () {
 
 function checkity() {
   var selectValue = $('#select').val();
-  // if (selectValue === 'weekly') {
-  //   console.log('hi im weekly')
-  //   return {
-  //   }
-  // }
   if (selectValue === 'bi-weekly') {
     payFrequency = {
       type: 'bi-weekly',
@@ -83,9 +68,7 @@ function handleselectchange() {
 $('#submit').on('click', checkity);
 $("#select").on('change', handleselectchange)
 
-
 var expenses = [
-  // {day: "1st", expenseList: [{name: "", description: "",amount: "", status: false}]},
   { day: "1st", expenseList: [], number: "1" },
   { day: "2nd", expenseList: [], number: "2" },
   { day: "3rd", expenseList: [], number: "3" },
@@ -122,20 +105,11 @@ var expenses = [
 
 // variable for pay period expenses
 var payPeriodExpenses =[];
-// variables for calculator
-var calBalance = 1500;
-var calExpenses = 500;
-var calPaid = 300;
-var calOutstanding = calExpenses - calPaid;
-var calRemaining = calBalance - calOutstanding;
-
-
 
 // variable to store months holidays
 var holidays = [];
 
 // functions
-
 // initialize modal functionality
 $(document).ready(function () {
   $('.modal').modal({
@@ -143,7 +117,6 @@ $(document).ready(function () {
       getHolidays();
     } 
   });
-
   $(document).click(function (e) {
     if ($(e.target).is('#expenses-sub, #expenses-sub *, .edit, .edit * .modal-day, .modal-day *, .name, .amount')) {
       return;
@@ -151,9 +124,8 @@ $(document).ready(function () {
     else {
       resetDelete();
     }
-  });  
+  });
 });
-
 
 // function to fetch holidays 
 var getHolidays = function () {
@@ -169,15 +141,19 @@ var getHolidays = function () {
         holidayResponse.json().then(function (holidayData) {
           // pass json data to createCalendar function
           createCalendar(holidayData);
+          calculator();
+          payPeriodExpensesList();
         });
         // if request was unsuccessful
       } else {
         // call createCalendar function without holidays
         createCalendar();
+        calculator();
+        payPeriodExpensesList();
       }
     })
     // if unable to connect to calendarific, still generate calendar
-    .catch(createCalendar);
+    .catch(createCalendar, calculator, payPeriodExpensesList);
 };
 
 $('.modal-day').click(function () {
@@ -185,11 +161,6 @@ $('.modal-day').click(function () {
   $('.modalDay').text("Day: " + modalDay);
   $('#name, #desc, #amt').val("");
 });
-
-// function to fetch and display quote
-
-
-// function to set pay frequency
 
 // function to create elements
 var createElem = function (index, day, name, description, amount) {
@@ -245,7 +216,6 @@ $('#delIco').click(function () {
   expenses[dayIndex].expenseList.splice(expIndex);
   var thisIndex = ".thisIndex" + expIndex;
   $(thisIndex).remove();
-
   resetDelete();
   saveExp();
 });
@@ -275,7 +245,6 @@ $(document).on('click', '.edit', function () {
   $('#name').val(name);
   $('#desc').val(desc);
   $('#amt').val(amt);
-
   $("#delIco").removeClass("hide");
   $("#delIco").addClass(dayIndex);
   $("#delIco").addClass(expIndex);
@@ -305,17 +274,14 @@ $(".expCol").sortable({
         .find(".name")
         .text()
         .trim();
-
       var amount = $(this)
         .find(".amount")
         .text()
         .trim();
-
       var description = $(this)
         .find(".description")
         .text()
         .trim();
-
       // add everything to temp arrays as objects
       tempArr.push({
         name: name,
@@ -331,19 +297,41 @@ $(".expCol").sortable({
   }
 });
 
-// function to calculate and display in calculator
-var calculator = function () {
-  for (var t = 0; t < payPeriodExpenses.length; t++) {
-    calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount)
-  }
-  calcExpEl.textContent = calExpenses;
+var calOutstanding = 0;
+var calBalance = 0;
+var calPaid = 0;
+var calExpenses = 0;
+var calRemaining =  0;
+
+var calcBal = function userBalance() {
+  calBalance = document.getElementById("balance").value;
+  document.getElementById("userBalance").innerHTML = calBalance;
 };
 
-document.getElementById("balance").innerHTML = calBalance;
-document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
-document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
-document.getElementById("paidExpenses").innerHTML = calPaid;
-document.getElementById("balanceRemaining").innerHTML = calRemaining;
+// function to calculate and display in calculator
+var calculator = function () {
+  calOutstanding = 0;
+  calPaid = 0;
+  calExpenses = 0;
+  calRemaining =  0;
+  for (var t = 0; t < payPeriodExpenses.length; t++) {
+    calExpenses = calExpenses + parseInt(payPeriodExpenses[t].amount);
+    if (!payPeriodExpenses[t].status) {
+      calOutstanding = calOutstanding + payPeriodExpenses[t].amount;
+    }
+    else { 
+      calPaid = calPaid + payPeriodExpenses[t].amount;
+    }
+  };
+  var calOutstanding = calExpenses - calPaid;
+  var calRemaining =  calBalance - calOutstanding;
+  calcExpEl.textContent = calExpenses;
+  document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
+  document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
+  document.getElementById("paidExpenses").innerHTML = calPaid;
+  document.getElementById("balanceRemaining").innerHTML = calRemaining;
+  saveBal();
+};
 
 // function to generate and display calendar
 var createCalendar = function (data) {
@@ -517,12 +505,49 @@ var createCalendar = function (data) {
     calDatesEl.appendChild(dateEl);
     // reset loopDay date
     var loopDay = moment().subtract(additional, 'days');
-  }
-  calculator();
+  }  
 };
 
-// function to calculate and display in calculator
+function payPeriodExpensesList () {
+  // console.log('status?', expense.status)
+  $('#expenses').empty();
+  for (let index = 0; index < payPeriodExpenses.length; index++) {
+    $('#expenses').append(
+   `<div class="row no-gutters">
+  <div class="card">
+  <div class="card-content">
+  <div class="row">
+  <div class="col s5
+  no-gutters">
+  <div class='Amount'>${payPeriodExpenses[index].name}</div>
+  <strong class='Expense'> $${payPeriodExpenses[index].amount}</strong>
+  <br>
+  </div>
+  <div class="col s7 no-gutters">
+  <form action="#">
+  <p>
+  <label>
+  <input type="checkbox" ${payPeriodExpenses[index].status ?  'checked' : ''} onclick="button()" class="paid-checkbox"/>
+  <span class='paid'>Paid</span>
+  </label>
+  </p>
+  <p>
+  <label>
+  <input type="checkbox" ${!payPeriodExpenses[index].status ?  'checked' : ''} onclick="button()" class="outstanding-checkbox"/>
+  <span class='outstanding'>Outstanding</span>
+  </label>
+  </p>
+  </form>
+  </div>
+  </div>
+  </div>
+  </div>`
+    )}
+}
 
+function button () {
+  console.dir($(this));
+}
 
 // function to save localStorage
 var saveExp = function () {
@@ -531,6 +556,9 @@ var saveExp = function () {
 var savePayFreq = function () {
   localStorage.setItem("payFreq", JSON.stringify(payFrequency));
 };
+var saveBal = function () {
+  localStorage.setItem("calBalance", JSON.stringify(calBalance));
+}
 
 // function to get localStorage
 var getLocal = function () {
@@ -548,15 +576,16 @@ var getLocal = function () {
   if (recallPayFreq) {
     payFrequency = recallPayFreq;
   }
+  calBalance = JSON.parse(localStorage.getItem("calBalance"));
+  if (!calBalance) {
+    calBalance = 0;
+  };
+  document.getElementById("userBalance").innerHTML = calBalance;
 };
 
 // call functions
-
 // get localStorage
 getLocal();
 
 // calendar generation/display
 getHolidays();
-setInterval(getHolidays(), ((60 * 1000) * 60) * 6);
-
-// event listeners

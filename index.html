@@ -33,8 +33,14 @@
                 
                 <!-- button for set expenses modal -->
                 <a class="col s12 m5 l12 waves-light btn modal-trigger" href="#expenses-modal">Set Expenses</a>
+            <!-- list of expenses between pay days-->
+                <div id="expense-list-container" >
+                    <div class="card-title">
+                        Expences Between Pay Days
+                    </div>
+                    <div id="expenses"> </div>
+                </div>
             </div>
-        <!-- list of expenses between pay days-->
 
         <!-- right column calendar and calculator -->
 
@@ -51,23 +57,37 @@
                         <div class="center-align" id="calGrid"></div>
                     </div>
                 </div>
-                <div class= "col s12" id= "calculator">
-                    <head> Budget Calculator</head>
-                    <p>
-                        Current Account Balance <div id= "balance"> </div>
-                    </p>
-                    <p>
-                        Total Pay Period Expenses <div id= "totalPayPeriodExpenses"></div>
-                    </p>
-                    <p>
-                        Outstanding Pay Period Expenses<div id= "outstandingExpenses"></div>
-                    </p>
-                    <p>
-                        Paid Pay Period Expenses<div id= "paidExpenses"></div>
-                    </p>
-                    <p>
-                        Remaining Account Balance<div id= "balanceRemaining"></div>
-                    </p>
+                <div id="calculator" class="card grey lighten-2">
+                    <div class="card-title col s12">
+                        <div class="col s12">Budget Calculator</div>
+                        <div class="col s6">Enter Account Balance Here: </div>
+                        <input id= "balance" class="col s3 inputBal">
+                        <button onclick="calcBal()">Submit</button>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                            <span class="col s3">
+                                <p>Current Account Balance</p>
+                                <p id= "userBalance"></p>
+                            </span>
+                            <span class="col s2">
+                                <p>Pay Period Total Expenses</p>
+                                <p id= "totalPayPeriodExpenses"></p>
+                            </span>
+                            <span class="col s2">
+                                <p>Pay Period Outstanding Expenses</p> 
+                                <p id= "outstandingExpenses"></p>
+                            </span>
+                            <span class="col s2">
+                                <p>Pay Period Paid Expenses</p>
+                                <p id= "paidExpenses"></p>
+                            </span>
+                            <span class="col s3">
+                                <p>Balance After Expenses</p>
+                                <p id= "balanceRemaining"></p>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
