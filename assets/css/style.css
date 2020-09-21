@@ -1,8 +1,16 @@
 :root {
-    --teal: #82C7A5;
+    --teal: #26a69a;
     --blue: #0145AC;
     --mediumGrey: #4E5567;
     --darkGrey: #1B212C;
+}
+
+#expCard {
+    background-color: var(--teal);
+}
+#calCard {
+    background-color: var(--teal);
+    color: #ffffff;
 }
 
 #calGrid {
@@ -15,6 +23,7 @@
 
 body {
     font-family: 'Josefin Sans', sans-serif;
+    background-color: var(--darkGrey);
 }
 
 a {
@@ -93,7 +102,7 @@ i:hover, .edit:hover { cursor: pointer; }
     margin: 0;
     border-radius: 0;
     box-shadow: none;
-    border: black solid 1px;
+    border: var(--darkGrey) solid 1px;
 }
 
 .card-body {
@@ -115,15 +124,24 @@ header h1 {
 
 #calculator {
     margin-top: 15px;
+    background-color: var(--teal);
+    color: #ffffff;
 
 }
 
 #calculator span {
     padding: 0;
-    border: black solid 1px;
+    background-color: var(--mediumGrey);
+    border: var(--darkGrey) solid 1px;
     border-radius: 10px;
 }
 
+#enterBal {
+    text-align: right;
+}
+#balance {
+    background-color: #ffffff;
+}
 footer {
     margin: 0;
     padding: 0;
@@ -132,6 +150,12 @@ footer {
 footer div {
     padding: 20px;
 }
+
+.modal {
+    background-color: var(--mediumGrey);
+}
+
+
 
 @media screen and (max-width: 992px) {
     .buttons {
