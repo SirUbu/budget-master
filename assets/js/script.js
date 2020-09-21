@@ -339,8 +339,6 @@ var calculator = function () {
   calcExpEl.textContent = calExpenses;
 };
 
-calculator();
-
 document.getElementById("balance").innerHTML = calBalance;
 document.getElementById("totalPayPeriodExpenses").innerHTML = calExpenses;
 document.getElementById("outstandingExpenses").innerHTML = calOutstanding;
@@ -520,6 +518,7 @@ var createCalendar = function (data) {
     // reset loopDay date
     var loopDay = moment().subtract(additional, 'days');
   }
+  calculator();
 };
 
 // function to calculate and display in calculator
