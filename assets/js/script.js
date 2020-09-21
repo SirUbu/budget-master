@@ -520,7 +520,7 @@ function payPeriodExpensesList () {
   <div class="row">
   <div class="col s5
   no-gutters">
-  <div class='Amount'>${payPeriodExpenses[index].name}</div>
+  <div class='Amount checkIndex${index}'>${payPeriodExpenses[index].name}</div>
   <strong class='Expense'> $${payPeriodExpenses[index].amount}</strong>
   <br>
   </div>
@@ -528,7 +528,7 @@ function payPeriodExpensesList () {
   <form action="#">
   <p>
   <label>
-  <input type="checkbox" ${payPeriodExpenses[index].status ?  'checked' : ''} onclick="button()" class="paid-checkbox"/>
+  <input type="checkbox" ${payPeriodExpenses[index].status ?  'checked' : ''} onclick="button(${index})" class="paid-checkbox"/>
   <span class='paid'>Paid</span>
   </label>
   </p>
@@ -546,8 +546,29 @@ function payPeriodExpensesList () {
     )}
 }
 
-function button () {
-  console.dir($(this));
+function button (index) {
+
+var checkIndex=$(`.checkIndex${index}`).text()
+if (checkIndex) {
+  $(".Amount").each(function () {
+  for (var c = 0; c < expenses.length; c++) {    
+      for (var p = 0; p < expenses[c].expenseList.length; p++) {
+        if (expenses[c].expenseList[p].name === checkIndex) {
+          expenses[c].expenseList[p].status = true;
+        }
+      }    
+  }})  
+}
+else {
+  $(".Amount").each(function () {
+    for (var c = 0; c < expenses.length; c++) {    
+        for (var p = 0; p < expenses[c].expenseList.length; p++) {
+            expenses[c].expenseList[p].status = false;
+        }    
+    }})
+}
+saveExp();
+payPeriodExpensesList();
 }
 
 // function to save localStorage
